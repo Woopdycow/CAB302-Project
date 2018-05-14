@@ -1,4 +1,4 @@
-package stock;
+package GUI;
 
 public class StockException extends Exception {
 

@@ -1,4 +1,4 @@
-package delivery;
+package GUI;
 
 public class DeliveryException extends Exception {
 
