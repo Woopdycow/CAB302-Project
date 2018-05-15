@@ -6,9 +6,16 @@ import org.junit.Test;
 
 public class ManifestTests {
 
+	Manifest myManifest;
+	
+	@Before
+	public void setUp() {
+		myManifest = null;
+	}
+
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testConstruction() {
+		myManifest = new Manifest();
 	}
 
 }

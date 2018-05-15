@@ -5,10 +5,18 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TruckTests {
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
+	
+	Truck myTruck;
+	
+	@Before
+	public void setUp() {
+		myTruck = null;
 	}
 
+	@Test
+	public void testConstruction() {
+		myTruck = new Truck();
+	}
+	
+	
 }
