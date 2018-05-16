@@ -44,8 +44,8 @@ public class TruckTests {
 		myTruck = new Truck();
 		Stock stock1 = new Stock();
 		Item item1 = new Item("Vegemite", 10.0, 15.0, 320, 600);
-		Item item2 = new Item("Cheese", 14.6, 16.4, 300, 600);
-		Item item3 = new Item("Grapes", 11.2, 14.3, 250, 600);
+		Item item2 = new Item("Cheese", 14.6, 16.4, 300, 600, 10.0);
+		Item item3 = new Item("Grapes", 11.2, 14.3, 250, 600, 5.0);
 		stock1.put(item1, 3);
 		stock1.put(item2, 5);
 		stock1.put(item3, 8);
