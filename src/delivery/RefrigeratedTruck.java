@@ -1,5 +1,7 @@
 package delivery;
 
+import stock.*;
+
 public class RefrigeratedTruck extends Truck {
 	
 	/**

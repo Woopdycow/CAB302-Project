@@ -1,5 +1,7 @@
 package delivery;
 
+import stock.*;
+
 public abstract class Truck {
 
 	/**
