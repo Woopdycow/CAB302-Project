@@ -12,7 +12,7 @@ public class ManifestTests {
 	Manifest myManifest;
 	
 	Truck truck1 = new Truck();
-	Truck truck2 = new RefrigeratedTruck(-10.0);
+	Truck truck2 = new RefrigeratedTruck();
 	Truck truck3 = new Truck();
 	
 	
@@ -28,9 +28,14 @@ public class ManifestTests {
 	
 	@Test
 	public void testAdd() {
-		myManifest.add(truck1);
-		myManifest.add(truck2);
-		myManifest.add(truck3);
+		myManifest.addTruck(truck1);
+		myManifest.addTruck(truck2);
+		myManifest.addTruck(truck3);
+		assertEquals(truck2.getTemp(), 10.0);
 	}
 	
+	@public void testRemove() {
+		myManifest.addTruck(truck1);
+		
+	}
 }
