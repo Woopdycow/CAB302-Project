@@ -1,10 +1,10 @@
 package stock;
 
 import static org.junit.Assert.*;
+import static org.junit.Test.*;
 
 import java.util.*;
 
-import org.junit.Test;
 
 public class StockTests {
 
@@ -33,7 +33,7 @@ public class StockTests {
 	public void testMultiAdd() {
 		myStock = new Stock();
 		
-		myItem = new Item("Vegemite", 4.5, 6.00, 12);
+		myItem = new Item("Vegemite", 4.5, 6.00, 12, 30);
 		
 		int quantity1 = 10;
 		int quantity2 = 13;
@@ -48,7 +48,7 @@ public class StockTests {
 	public void testQuantityAddition() {
 		myStock = new Stock();
 		
-		myItem = new Item("Vegemite", 4.5, 6.0, 12);
+		myItem = new Item("Vegemite", 4.5, 6.0, 12, 30);
 		
 		int quantity1 = 10;
 		int quantity2 = 13;
@@ -67,15 +67,66 @@ public class StockTests {
 	public void testDuplicateAdd() {
 		myStock = new Stock();
 		
-		myItem1 = new Item("Vegemite", 4.5, 6.0, 12);
-		myItem2 = new Item("Vegemite", 3.2, 4.5, 13);
+		Item myItem1 = new Item("Vegemite", 4.5, 6.0, 12, 30);
+		Item myItem2 = new Item("Vegemite", 3.2, 4.5, 13, 30);
 		
 		int quantity1 = 10;
 		int quantity2 = 13;
 		
-		myStock.addItem(myItem1, quantity1);
-		myStock.addItem(myItem2, quantity2);
+		myStock.add(myItem1, quantity1);
+		myStock.add(myItem2, quantity2);
 		
 		assertEquals(new Integer(quantity1 + quantity2), myStock.getQuantity(myItem1));
+	}
+	
+	@Test 
+	public void testAddTogether1() {
+		Stock stock1 = new Stock();
+		Stock stock2 = new Stock();
+		
+		Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+		Item myItem2 = new Item("Ice Cream", 0.82, 1.50, 40, 80, -18);
+		Item myItem3 = new Item("Potato Chips", 3.20, 4.50, 30, 70);
+		
+		stock1.add(myItem1, 50);
+		stock1.add(myItem2, 80);
+		stock2.add(myItem1, 52);
+		stock2.add(myItem3, 70);
+		
+		assertEquals(new Integer(50 + 52), stock1.getQuantity(myItem1), 0.0);
+	}
+	
+	@Test
+	public void testAddTogether2() {
+	Stock stock1 = new Stock();
+	Stock stock2 = new Stock();
+	
+	Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+	Item myItem2 = new Item("Ice Cream", 0.82, 1.50, 40, 80, -18);
+	Item myItem3 = new Item("Potato Chips", 3.20, 4.50, 30, 70);
+	
+	stock1.add(myItem1, 50);
+	stock1.add(myItem2, 80);
+	stock2.add(myItem1, 52);
+	stock2.add(myItem3, 70);
+	
+	assertEquals(80, stock1.getQuantity(myItem2), 0.0);
+	}
+	
+	@Test
+	public void testAddTogether3() {
+	Stock stock1 = new Stock();
+	Stock stock2 = new Stock();
+	
+	Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+	Item myItem2 = new Item("Ice Cream", 0.82, 1.50, 40, 80, -18);
+	Item myItem3 = new Item("Potato Chips", 3.20, 4.50, 30, 70);
+	
+	stock1.add(myItem1, 50);
+	stock1.add(myItem2, 80);
+	stock2.add(myItem1, 52);
+	stock2.add(myItem3, 70);
+	
+	assertEquals(70, stock1.getQuantity(myItem3, 0.0);
 	}
 }
