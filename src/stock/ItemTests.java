@@ -1,10 +1,9 @@
 package stock;
 
-import static org.junit.Assert.*;
+import org.junit.*;
 
+import java.util.*;
 import java.util.Random;
-
-import org.junit.Test;
 
 public class ItemTests {
 
