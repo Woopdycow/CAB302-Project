@@ -13,20 +13,20 @@ public class Item {
 	 * @author Bryan Kassulke
 	 */
 	public Item(String name, double cost, double price, int reorderPoint, int reorderAmount) {
-		name = this.name;
-		cost = this.cost;
-		price = this.price;
-		reorderPoint = this.reorderPoint;
-		reorderAmount = this.reorderAmount;
+		this.name = name;
+		this.cost = cost;
+		this.price = price;
+		this.reorderPoint = reorderPoint;
+		this.reorderAmount = reorderAmount;
 	}
 	
 	public Item(String name, double cost, double price, int reorderPoint, int reorderAmount, double temp) {
-		name = this.name;
-		cost = this.cost;
-		price = this.price;
-		reorderPoint = this.reorderPoint;
-		reorderAmount = this.reorderAmount;
-		temp = this.temp;
+		this.name = name;
+		this.cost = cost;
+		this.price = price;
+		this.reorderPoint = reorderPoint;
+		this.reorderAmount = reorderAmount;
+		this.temp = temp;
 	}
 	
 	public String getName() {

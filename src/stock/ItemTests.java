@@ -117,12 +117,12 @@ public class ItemTests {
 	public void testConstruction() {
 		String name = "Milk";
 		double manuCost = 106.22;
-		double sellAmount = 121.61;
+		double sellPrice = 121.61;
 		int reorderPoint = 320;
-		double reorderAmount = 600;
+		int reorderAmount = 600;
 		double temp = 13.00;
 		
-		myItem = new Item(name, manuCost, sellAmount, reorderPoint, reorderAmount, temp);
+		myItem = new Item(name, manuCost, sellPrice, reorderPoint, reorderAmount, temp);
 	}
 	@Test
 	public void testName() {
@@ -135,34 +135,34 @@ public class ItemTests {
 	public void testCost() {
 		double manuCost = randManuCost();
 		myItem = new Item("Vegemite", manuCost, 121.61, 320, 600);
-		assertEquals(manuCost, myItem.getCost());
+		assertEquals(manuCost, myItem.getCost(), 0.0);
 	}
 	
 	@Test
 	public void testSell() {
 		double sellPrice = randSellPrice();
 		myItem = new Item("Vegemite", 106.22, sellPrice, 320, 600);
-		assertEquals(sellPrice, myItem.getSellPrice());
+		assertEquals(sellPrice, myItem.getPrice(), 0.0);
 	}
 	
 	@Test
 	public void testReorderPoint() {
 		int reorderPoint = randReorderPoint();
 		myItem = new Item("Vegemite", 106.22, 121.61, reorderPoint, 600);
-		assertEquals(reorderPoint, myItem.getReorderPoint());
+		assertEquals(reorderPoint, myItem.getReorderPoint(), 0.0);
 	}
 	
 	@Test
 	public void testReorderAmount() {
 		int reorderAmount = randReorderAmount();
 		myItem = new Item("Vegemite", 106.22, 121.61, 320, reorderAmount);
-		assertEquals(reorderAmount, myItem.getReorderAmount());
+		assertEquals(reorderAmount, myItem.getReorderAmount(), 0.0);
 	}
 	
 	@Test
 	public void testTemperature() {
 		double temp = randTemp();
 		myItem = new Item("Milk", 32.26, 13.82, 680, 1282, temp);
-		assertEquals(temp, myItem.getTemp());
+		assertEquals(temp, myItem.getTemp(), 0.0);
 	}
 }
