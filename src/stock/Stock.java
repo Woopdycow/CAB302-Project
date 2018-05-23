@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Stock {
-	private HashMap<Item, Integer> contents;
+	public HashMap<Item, Integer> contents;
 
 	/**
 	 * Constructor Method
@@ -28,7 +28,8 @@ public class Stock {
 	}
 	
 	public HashMap<Item, Integer> getContents(){
-		return contents;
+		HashMap<Item, Integer> output = contents;
+		return output;
 	}
 	
 	public int getQuantity(Item thisItem) {

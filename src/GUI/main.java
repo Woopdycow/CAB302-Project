@@ -1,4 +1,8 @@
 package GUI;
+import java.util.HashMap;
+
+import delivery.*;
+import stock.*;
 
 public class main {
 

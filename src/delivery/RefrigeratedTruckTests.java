@@ -6,9 +6,12 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.Set;
+
 public class RefrigeratedTruckTests {
 	
-	Truck myTruck;
+	RefrigeratedTruck myTruck;
 	double cost;
 	int cargoCapacity;
 	Stock cargo;
@@ -20,57 +23,58 @@ public class RefrigeratedTruckTests {
 
 	@Test
 	public void testConstruction() {
-		myTruck = new RefrigeratedTruck(cost, cargoCapacity, cargo);
+		myTruck = new RefrigeratedTruck();
 	}
 	
 	@Test
 	public void testCargo() {
-		String outputTest = "";
-		myTruck = new RefrigeratedTruck(cost, cargoCapacity, cargo);
+		String outaddItemTest = "";
+		myTruck = new RefrigeratedTruck();
 		Stock stock1 = new Stock();
 		Item item1 = new Item("Vegemite", 10.0, 15.0, 320, 600);
 		Item item2 = new Item("Cheese", 14.6, 16.4, 300, 600, 5.0);
 		Item item3 = new Item("Grapes", 11.2, 14.3, 250, 600, 10.0);
-		stock1.put(item1, 4);
-		stock1.put(item2, 3);
-		stock1.put(item3, 7);
+		stock1.addItem(item1, 4);
+		stock1.addItem(item2, 3);
+		stock1.addItem(item3, 7);
 		myTruck.setCargo(stock1);
-		for (Item getItem : myTruck.getCargo()) {
-			for (int i = 0; i <= stock1.get(getItem); i++)
-				outputTest += getItem.getName();
+		HashMap<Item, Integer> items = myTruck.getCargo().getContents();
+		for (Item getItem : items.keySet()) {
+			for (int i = 0; i <= stock1.getQuantity(getItem); i++)
+				outaddItemTest += getItem.getName();
 		}
-		assertEquals(outputTest, "VegemiteVegemiteVegemiteVegemiteCheeseCheeseCheeseGrapesGrapesGrapesGrapesGrapesGrapesGrapes");
+		assertEquals(outaddItemTest, "VegemiteVegemiteVegemiteVegemiteCheeseCheeseCheeseGrapesGrapesGrapesGrapesGrapesGrapesGrapes");
 	}
 	
 	@Test
 	public void testGetTempUpdate() {
-		myTruck = new RefrigeratedTruck(cost, cargoCapacity, cargo);
+		myTruck = new RefrigeratedTruck();
 		Stock myStock = new Stock();
 		Item myItem = new Item("Cheese", 14.6, 16.4, 300, 600, 5.0);
-		myStock.put(myItem, 1);
+		myStock.addItem(myItem, 1);
 		myTruck.setCargo(myStock);
 		assertEquals(myTruck.getTemp(), 5.0, 0.0);
 	}
 	
 	@Test
 	public void testGetCost() {
-		myTruck = new RefrigeratedTruck(cost, cargoCapacity, cargo);
+		myTruck = new RefrigeratedTruck();
 		double testPrice = (900 + (200 * (java.lang.Math.pow(0.7, myTruck.getTemp() * 0.2))));
 		assertEquals(myTruck.getCost(), testPrice, 0.0);
 	}
 	
 	@Test
 	public void testGetCapacity() {
-		myTruck = new RefrigeratedTruck(cost, cargoCapacity, cargo);
+		myTruck = new RefrigeratedTruck();
 		assertEquals(800, myTruck.getCapacity());
 	}
 	
 	@Test(expected = Exception.TruckOverLoadException)
 	public void testOverload() {
-		myTruck = new RefrigeratedTruck(cost, cargoCapacity, cargo);
+		myTruck = new RefrigeratedTruck();
 		Stock stock1 = new Stock();
 		Item item1 = new Item("Cheese", 10.0, 15.0, 320, 600);
-		stock1.put(item1, 801);
+		stock1.addItem(item1, 801);
 		myTruck.setCargo(stock1);
 	}
 

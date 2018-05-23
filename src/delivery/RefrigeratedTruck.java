@@ -27,7 +27,7 @@ public class RefrigeratedTruck extends Truck {
 	}
 	
 	public double getTemp() {
-		for (Item key : cargo.getContents().keySet(){ 
+		for (Item key : cargo.getContents().keySet()){ 
 			if (key.getTemp() < temp) {
 				temp = key.getTemp();
 			}

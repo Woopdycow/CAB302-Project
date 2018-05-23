@@ -2,6 +2,7 @@ package delivery;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import stock.*;
 
 import org.junit.Test;
 
