@@ -4,35 +4,37 @@ import stock.*;
 
 public class RefrigeratedTruck extends Truck {
 	
-	double cost;
-	int cargoCapacity;
-	Stock cargo;
-	double temp = 10.00;
-	public static final int CARGOCAPACITY = 800;
+	private double temp = 10.00;
+	private static final int REFRIGERATEDCAPACITY = 800;
 	
 	/**
 	 * Constructor Method
 	 * @author Jonathon Meyer
 	 */
 	public RefrigeratedTruck() {
-		this.cargoCapacity = CARGOCAPACITY;
+		this.cargoCapacity = REFRIGERATEDCAPACITY;
 	}
 	
-	public int getCapacity() {
-		return this.cargoCapacity;
-	}
-	
-	public void setCargo(Stock stock){
-		this.cargo = stock;
+	public void setCargo(Stock stock) throws TruckOverloadException {
+		if (stock.getTotal() >= cargoCapacity) {
+			throw new TruckOverloadException();
+		} else {
+			cargo = stock;
+		}
 	}
 	
 	public double getTemp() {
-		for (Item key : cargo.getContents().keySet()){ 
-			if (key.getTemp() < temp) {
-				temp = key.getTemp();
+		if (cargo != null) {
+			for (Item key : cargo.getItemSet()){ 
+				if (key.getTemp() < temp) {
+					temp = key.getTemp();
+				}
 			}
+			return temp;
+		} else {
+			return 10.0;
 		}
-		return temp;
+		
 	}
 	
 	public double getCost() {

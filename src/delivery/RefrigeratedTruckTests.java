@@ -15,6 +15,7 @@ public class RefrigeratedTruckTests {
 	double cost;
 	int cargoCapacity;
 	Stock cargo;
+	double temp;
 	
 	@Before
 	public void setUp() {
@@ -27,27 +28,27 @@ public class RefrigeratedTruckTests {
 	}
 	
 	@Test
-	public void testCargo() {
-		String outaddItemTest = "";
+	public void testCargo() throws TruckOverloadException {
+		String outputTest = "";
 		myTruck = new RefrigeratedTruck();
 		Stock stock1 = new Stock();
 		Item item1 = new Item("Vegemite", 10.0, 15.0, 320, 600);
-		Item item2 = new Item("Cheese", 14.6, 16.4, 300, 600, 5.0);
-		Item item3 = new Item("Grapes", 11.2, 14.3, 250, 600, 10.0);
+		Item item2 = new Item("Cheese", 14.6, 16.4, 300, 600);
+		Item item3 = new Item("Grapes", 11.2, 14.3, 250, 600);
 		stock1.addItem(item1, 4);
 		stock1.addItem(item2, 3);
 		stock1.addItem(item3, 7);
 		myTruck.setCargo(stock1);
-		HashMap<Item, Integer> items = myTruck.getCargo().getContents();
-		for (Item getItem : items.keySet()) {
-			for (int i = 0; i <= stock1.getQuantity(getItem); i++)
-				outaddItemTest += getItem.getName();
+
+		for (Item getItem : myTruck.getCargo().getItemSet()) {
+			for (int i = 0; i < myTruck.getCargo().getQuantity(getItem); i++)
+				outputTest += getItem.getName();
 		}
-		assertEquals(outaddItemTest, "VegemiteVegemiteVegemiteVegemiteCheeseCheeseCheeseGrapesGrapesGrapesGrapesGrapesGrapesGrapes");
+		assertEquals("VegemiteVegemiteVegemiteVegemiteGrapesGrapesGrapesGrapesGrapesGrapesGrapesCheeseCheeseCheese", outputTest);
 	}
 	
 	@Test
-	public void testGetTempUpdate() {
+	public void testGetTempUpdate() throws TruckOverloadException {
 		myTruck = new RefrigeratedTruck();
 		Stock myStock = new Stock();
 		Item myItem = new Item("Cheese", 14.6, 16.4, 300, 600, 5.0);
@@ -70,7 +71,7 @@ public class RefrigeratedTruckTests {
 	}
 	
 	@Test(expected = TruckOverloadException.class)
-	public void testOverload() {
+	public void testOverload() throws TruckOverloadException {
 		myTruck = new RefrigeratedTruck();
 		Stock stock1 = new Stock();
 		Item item1 = new Item("Cheese", 10.0, 15.0, 320, 600);

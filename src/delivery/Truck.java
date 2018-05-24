@@ -12,20 +12,14 @@ public abstract class Truck {
 	 * Constructor Method
 	 * @author Jonathon Meyer
 	 */	
-	public Truck() {
-		
-	}
-
-	public void setCargo(Stock stock) {
-		this.cargo = stock;
-	}
+	public Truck() {};
+	
+	public abstract double getCost();
+	
+	public abstract void setCargo();
 	
 	public Stock getCargo() {
 		return cargo;
-	}
-	
-	public double getCost() {
-		return cost;
 	}
 	
 	public int getCapacity() {

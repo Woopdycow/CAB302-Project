@@ -1,24 +1,25 @@
 package delivery;
 
-import stock.Stock;
+import stock.*;
 
 public class OrdinaryTruck extends Truck {
 
-	public static final int CARGOCAPACITY = 1000;
+	private static final int ORDINARYCAPACITY = 1000;
 	
-	public OrdinaryTruck(double cost, int cargoCapacity, Stock cargo) {
-		super();
-		this.cargoCapacity = CARGOCAPACITY;
+	
+	/**
+	 * Constructor Method
+	 * @author Jonathon Meyer
+	 */
+	public OrdinaryTruck() {
+		this.cargoCapacity = ORDINARYCAPACITY;
 	}
 	
-	public void setCargo(Stock stock) {
-		this.cargo = stock;
-	}
-	
-	public void checkCapacity() throws TruckOverloadException {
-		int total = cargo.getTotal();
-		if (total > cargoCapacity) {
+	public void setCargo(Stock stock) throws TruckOverloadException {
+		if (stock.getTotal() >= cargoCapacity) {
 			throw new TruckOverloadException();
+		} else {
+			cargo = stock;
 		}
 	}
 	
