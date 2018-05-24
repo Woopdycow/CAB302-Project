@@ -69,7 +69,7 @@ public class RefrigeratedTruckTests {
 		assertEquals(800, myTruck.getCapacity());
 	}
 	
-	@Test(expected = Exception.TruckOverLoadException)
+	@Test(expected = TruckOverloadException.class)
 	public void testOverload() {
 		myTruck = new RefrigeratedTruck();
 		Stock stock1 = new Stock();

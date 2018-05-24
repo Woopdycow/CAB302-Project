@@ -7,7 +7,7 @@ public class OrdinaryTruck extends Truck {
 	public static final int CARGOCAPACITY = 1000;
 	
 	public OrdinaryTruck(double cost, int cargoCapacity, Stock cargo) {
-		super(cost, cargoCapacity, cargo);
+		super();
 		this.cargoCapacity = CARGOCAPACITY;
 	}
 	
