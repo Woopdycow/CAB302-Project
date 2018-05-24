@@ -2,6 +2,8 @@ package stock;
 
 import org.junit.*;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.*;
 import java.util.Random;
 
