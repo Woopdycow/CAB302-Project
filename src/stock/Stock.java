@@ -1,6 +1,7 @@
 package stock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Stock {
 	public HashMap<Item, Integer> contents;
@@ -22,14 +23,13 @@ public class Stock {
 	}
 	
 	public void merge(Stock copiedStock) {		
-		for (Item key : copiedStock.getContents().keySet()) {
-			this.addItem(key, copiedStock.getContents().get(key));
+		for (Item key : copiedStock.getItemSet()) {
+			this.addItem(key, copiedStock.getQuantity(key));
 		}
 	}
 	
-	public HashMap<Item, Integer> getContents(){
-		HashMap<Item, Integer> output = contents;
-		return output;
+	public Set<Item> getItemSet(){
+		return contents.keySet();
 	}
 	
 	public int getQuantity(Item thisItem) {
