@@ -11,20 +11,17 @@ public class Store {
 	 * Constructor Method
 	 * @author Bryan Kassulke
 	 */
+	// Protected constructor is sufficient to suppress unauthorized
+	// calls to the constructor
 	protected Store() {
 		name = "SUPERMART";
 		capital = STARTINGCAPITAL;
 		inventory = new Stock();
 	}
-	
+
 	private static class StoreHolder {
 		private final static Store INSTANCE = new Store();
 	}
-	
-	public static void importItems() {
-		
-	}
-	
 	public static Store getInstance() {
 		return StoreHolder.INSTANCE;
 	}
@@ -32,5 +29,5 @@ public class Store {
 	public static double getCapital() {
 		return capital;
 	}
-
+	
 }

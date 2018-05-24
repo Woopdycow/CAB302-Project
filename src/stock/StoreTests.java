@@ -44,21 +44,21 @@ public class StoreTests {
 		stock1 = new Stock();
 		stock2 = new Stock();
 		
-		stock1.add(item1, 3);
-		stock1.add(item2, 9);
+		stock1.addItem(item1, 3);
+		stock1.addItem(item2, 9);
 		
-		stock2.add(item3, 11);
-		stock2.add(item4, 69);
+		stock2.addItem(item3, 11);
+		stock2.addItem(item4, 69);
 		
-		truck1 = new Truck();
+		truck1 = new OrdinaryTruck();
 		truck2 = new RefrigeratedTruck();
 		
 		truck1.setCargo(stock1);
 		
 		myManifest = new Manifest();
 		
-		myManifest.add(truck1);
-		myManifest.add(truck2);
+		myManifest.addItem(truck1);
+		myManifest.addItem(truck2);
 		
 		myStore.loadManifest(myManifest);
 		assertEquals(new Integer(storeStock.getQuantity(item1) + 3), storeStock.getQuantity(item1), 0.0);

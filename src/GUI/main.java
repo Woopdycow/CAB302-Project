@@ -7,7 +7,8 @@ import java.util.HashMap;
 public class main {
 
 	public static void main(String[] args) {
-		//Store storeInstance = new Store.getInstance();
+		Store store = Store.getInstance();
+		System.out.println(store.getCapital());
 	}
 
 }
