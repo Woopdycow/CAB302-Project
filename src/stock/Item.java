@@ -7,6 +7,7 @@ public class Item {
 	private int reorderPoint;
 	private int reorderAmount;
 	private double temp;
+	private boolean dryGoods;
 
 	/**
 	 * Constructor Method
@@ -18,6 +19,7 @@ public class Item {
 		this.price = price;
 		this.reorderPoint = reorderPoint;
 		this.reorderAmount = reorderAmount;
+		this.dryGoods = true;
 	}
 	
 	public Item(String name, double cost, double price, int reorderPoint, int reorderAmount, double temp) {
@@ -27,6 +29,7 @@ public class Item {
 		this.reorderPoint = reorderPoint;
 		this.reorderAmount = reorderAmount;
 		this.temp = temp;
+		this.dryGoods = false;
 	}
 	
 	public String getName() {
@@ -51,6 +54,10 @@ public class Item {
 	
 	public double getTemp() {
 		return temp;
+	}
+	
+	public boolean isDryGoods() {
+		return dryGoods;
 	}
 
 }

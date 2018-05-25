@@ -1,16 +1,17 @@
 package stock;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class Stock {
-	public HashMap<Item, Integer> contents;
+	public Map<Item, Integer> contents;
 
 	/**
 	 * Constructor Method
 	 * @author Bryan Kassulke
 	 */
 	public Stock() {
-		contents = new HashMap<Item, Integer>();
+		contents = new LinkedHashMap<Item, Integer>();
 	}
 	
 	public void addItem(Item newItem, int quantity) {
@@ -21,12 +22,20 @@ public class Stock {
 		contents.put(newItem, amount);
 	}
 	
+	public void removeItem(Item item, int amount) {
+		if (contents.get(item) > amount) {
+			contents.put(item, contents.get(item) - amount);
+		} else {
+			contents.remove(item);
+		}
+	}
+	
 	public void merge(Stock copiedStock) {		
 		for (Item key : copiedStock.getItemSet()) {
 			this.addItem(key, copiedStock.getQuantity(key));
 		}
 	}
-	
+		
 	public Set<Item> getItemSet(){
 		return contents.keySet();
 	}
