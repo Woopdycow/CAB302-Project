@@ -23,7 +23,7 @@ public class InfoPane extends JPanel {
 		DecimalFormat decimals = new DecimalFormat(".##");
 		
 		JTextField field = new JTextField(100);
-		field.setText(decimals.format(Store.getInstance().getCapital()));
+		field.setText("$" + decimals.format(Store.getInstance().getCapital()));
 		
 		JLabel label = new JLabel("Capital");
 		
