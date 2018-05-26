@@ -31,7 +31,7 @@ public class MainPane extends JFrame {
 		
 		window.add(titlePane, BorderLayout.NORTH);
 		window.add(infoPane, BorderLayout.CENTER);
-		//window.add(buttonPane, BorderLayout.SOUTH);
+		window.add(buttonPane, BorderLayout.SOUTH);
 		
 	}
 
