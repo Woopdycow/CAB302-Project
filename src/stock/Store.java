@@ -1,10 +1,7 @@
 package stock;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import delivery.*;
 
@@ -25,22 +22,96 @@ public class Store {
 		inventory = new Stock();
 	}
 
+	/**
+	 * Creates the only and only instance of the Store object.
+	 * @author Bryan Kassulke
+	 */
 	private static class StoreHolder {
 		private final static Store INSTANCE = new Store();
 	}
 	
+	/**
+	 * Global access point for the Store object.
+	 * @return Returns single instance of store.
+	 */
+	public static Store getInstance() {
+		return StoreHolder.INSTANCE;
+	}
+	
+	/**
+	 * Adds an item to the store's inventory of a given quantity.
+	 * @author Bryan Kassulke
+	 * @param imported Item to be added to the store's inventory.
+	 * @param amount Amount of the item to be added.
+	 */
 	public void addItem(Item imported, int amount) {
 		inventory.addItem(imported, amount);
 	}
 	
-	public void removeItem(Item imported, int amount) {
-		inventory.removeItem(imported, amount);
+	/**
+	 * Remove an item from the store's inventory.
+	 * @author Bryan Kassulke
+	 * @param removed Item to be removed from the inventory.
+	 * @param amount Quantity of the item to be removed.
+	 */
+	public void removeItem(Item removed, int amount) {
+		inventory.removeItem(removed, amount);
 	}
 	
+	/**
+	 * Get the quantity of an item within the store's inventory.
+	 * @author Bryan Kassulke
+	 * @param item The item whose quantity is returned.
+	 * @return Returns an integer equal to the amount of the item within the inventory.
+	 */
 	public int getItemQuantity(Item item) {
 		return inventory.getQuantity(item);
 	}
 	
+	/**
+	 * Loads new items from external list into the store's inventory. Overrides existing item with shared name but preserves quantity.
+	 * @author Bryan Kassulke
+	 * @param newItems List of new items to be added.
+	 */
+	public void loadItemProperties(List<Item> newItems) {
+		int temp = 0;
+		for (Item k : newItems) {
+			for (Item j : inventory.getItemSet()) {
+				if (k.getName() == j.getName()) {
+					temp = inventory.getQuantity(j);
+					inventory.removeItem(j, inventory.getQuantity(j));
+				}
+			}
+			inventory.addItem(k, temp);
+		}
+	}
+	
+	/**
+	 * Loads weekly sales log to the store. Adjusts stock levels and capital accordingly.
+	 * @author Bryan Kassulke
+	 * @param sales List of values to be loaded as item names and quantities.
+	 */
+	public void loadSalesLog(List<Object[]> sales) {
+		int grossProfit = 0;
+		Item soldItem = new Item(" ", 0.0, 0.0, 0, 0);
+		for (Object[] k : sales) {
+			for (Item j : inventory.getItemSet()) {
+				if (j.getName() == k[0]) {
+					soldItem = j;
+				}
+			}
+			inventory.removeItem(soldItem, (int)k[1]);
+			grossProfit += (soldItem.getPrice() * (int)k[1]);
+		}
+		capital += grossProfit;
+	}
+	
+	/**
+	 * Receives and processes a manifest as if it were delivered. Pay's up front and replenishes stock levels.
+	 * @author Bryan Kassulke
+	 * @param delivery Manifest to be processed.
+	 * @throws DeliveryException Throw if there are miscellaneous errors accessing information.
+	 */
 	public void loadManifest(Manifest delivery) throws DeliveryException {
 		double grossCost = 0.0;
 		// If the manifest is not empty
@@ -71,6 +142,12 @@ public class Store {
 		capital -= grossCost;
 	}
 	
+	/**
+	 * Generates a manifest to be delivered to the store based on the levels of inventory.
+	 * @author Bryan Kassulke
+	 * @return Returns a manifest for stock reusable.
+	 * @throws TruckOverloadException Trucks have been loaded with more stock than they can fit.
+	 */
 	public Manifest getManifest() throws TruckOverloadException {
 		Manifest resupply = new Manifest();
 		Stock reorder = getReorder();
@@ -202,6 +279,11 @@ public class Store {
 		return resupply;
 	}
 	
+	/**
+	 * Generates Stock object of items and quantities that need to be reordered.
+	 * @author Bryan Kassulke
+	 * @return Returns Stock object of reorder.
+	 */
 	public Stock getReorder() {
 		Stock reorder = new Stock();
 		for (Item k : inventory.getItemSet()) {
@@ -212,18 +294,44 @@ public class Store {
 		return reorder;
 	}
 	
-	public static Store getInstance() {
-		return StoreHolder.INSTANCE;
+	/**
+	 * Gets an item object when only the name is accessible.
+	 * @author Bryan Kassulke
+	 * @param name Name of the item to be returned.
+	 * @return The item of which the name belongs to.
+	 */
+	public Item getItemByName(String name) {
+		for (Item k : inventory.getItemSet()) {
+			if (k.getName() == name) {
+				return k;
+			}
+		}
+		return null;
 	}
 	
+	/**
+	 * Returns the name of the Store.
+	 * @author Bryan Kassulke
+	 * @return Returns the store's name.
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Returns the store's capital.
+	 * @author Bryan Kassulke
+	 * @return Returns the captial of the store.
+	 */
 	public double getCapital() {
 		return capital;
 	}
 	
+	/**
+	 * Gets the Stock object that represents the store's inventory.
+	 * @author Bryan Kassulke
+	 * @return Returns a stock object of the store's inventory.
+	 */
 	public Stock getStock() {
 		return inventory;
 	}	

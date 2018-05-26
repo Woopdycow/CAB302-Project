@@ -28,15 +28,17 @@ public class ItemReader {
 		
 		items = new ArrayList<>();
 		
+<<<<<<< HEAD
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			
 		
+=======
+		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+>>>>>>> 1c6db9723e2e85567d2d35e49423c1dcf4d433f3
 			while ((line = br.readLine()) != null) {
 				String[] itemInfo = line.split(csvSplitBy);
 				Item item = newItem(itemInfo);
-				items.add(item);
-				
-				
+				items.add(item);	
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

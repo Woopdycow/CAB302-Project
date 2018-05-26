@@ -29,16 +29,12 @@ public class SalesLogReader {
 		String csvSplitBy = ",";
 		
 		List<Object[]> salesLog;
-		
 		salesLog = new ArrayList<>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-			
-		
 			while ((line = br.readLine()) != null) {
 				String[] rawInput = line.split(csvSplitBy);
 				Object[] sales = {rawInput[0], new Integer(rawInput[1])};
-				
 				salesLog.add(sales);
 			}
 		} catch (IOException e) {
