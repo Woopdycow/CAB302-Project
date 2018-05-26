@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,6 +23,7 @@ public class InfoPane extends JPanel {
 	 */
 	public InfoPane() {
 		
+		setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		Dimension size = getPreferredSize();
 		size.width = 500;
 		setPreferredSize(size);
@@ -32,25 +34,57 @@ public class InfoPane extends JPanel {
 		
 		JLabel label = new JLabel("Capital");
 		
+		String[] columnNames = {"Name",
+				"Quantity",
+				"Manu. Cost",
+				"Sell Price",
+				"Reorder Point",
+				"Reorder Amount",
+				"Temperature"};
+
+		Object[][] data = {
+				{"Ice Cream", new Integer(3),
+					new Double(50.22), new Double(55.00), new Integer(11), new Integer(25), new Double(-18)}
+		};
+		
 		GridBagLayout layout = new GridBagLayout();
 		setLayout(layout);
-		
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.weightx= 0;
-		gbc.weighty = 1;
-		
-		gbc.gridx = 100;
-		gbc.gridy = 0;
+
+		gbc.weightx = 0.5;
+		//gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.ipadx = 100;
-		gbc.ipady = 10;
-		gbc.insets = new Insets(20,0,0,0);
+		gbc.gridheight = 100;
+		gbc.gridwidth = 50;
+		gbc.gridx = 250;
+		gbc.gridy = 350;
 		gbc.anchor = GridBagConstraints.PAGE_START;
+		gbc.insets = new Insets(0,700,0,80);
 		add(field, gbc);
 		field.setEditable(false);
 		
-		gbc.gridx = 0;
-		gbc.insets = new Insets(20,250,0,0);
+		//gbc.gridx = 0;
+		gbc.weightx = 0;
+		//gbc.gridy = 20;
+		//gbc.anchor = GridBagConstraints.PAGE_START;
+		gbc.ipadx = 0;
+		gbc.insets = new Insets(0,780,0,0);
 		add(label, gbc);
-
+		
+		gbc.gridx = 250;
+		JTable table = new JTable(data, columnNames);
+		table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+		table.setFillsViewportHeight(true);
+		table.setMinimumSize(new Dimension(200,200));
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		gbc.gridx = 250;
+		gbc.gridy = 350;
+		gbc.gridheight = 300;
+		gbc.ipady = 300;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(100,100,0,100);
+		add(scrollPane, gbc);
+		
 	}
 }

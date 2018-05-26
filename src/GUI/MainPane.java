@@ -28,7 +28,7 @@ public class MainPane extends JFrame {
 		Container window = getContentPane();
 		
 		window.add(titlePane, BorderLayout.NORTH);
-		window.add(infoPane, BorderLayout.WEST);
+		window.add(infoPane, BorderLayout.CENTER);
 		
 	}
 
