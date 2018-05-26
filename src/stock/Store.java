@@ -164,15 +164,18 @@ public class Store {
 			}
 		}
 		//Produce new Stock of sorted cold items: sortedColdest.
-		coldestItem = coldGoods.get(0);
-		for (int i = 0; i < coldGoods.size(); i++) {
-			for (Item k : coldGoods) {
-				if (k.getTemp() <= coldestItem.getTemp()) {
-					coldestItem = k;
+		if (!coldGoods.isEmpty()) {
+			coldestItem = coldGoods.get(0);
+			for (int i = 0; i < coldGoods.size(); i++) {
+				for (Item k : coldGoods) {
+					if (k.getTemp() <= coldestItem.getTemp()) {
+						coldestItem = k;
+					}
 				}
+				sortedColdest.add(coldestItem);
 			}
-			sortedColdest.add(coldestItem);
 		}
+		
 		int refrigeratedCapacity = new RefrigeratedTruck().getCapacity();
 		int ordinaryCapacity = new OrdinaryTruck().getCapacity();
 		Stock cargo;
