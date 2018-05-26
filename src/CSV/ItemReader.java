@@ -30,14 +30,10 @@ public class ItemReader {
 		items = new ArrayList<>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-			
-		
 			while ((line = br.readLine()) != null) {
 				String[] itemInfo = line.split(csvSplitBy);
 				Item item = newItem(itemInfo);
-				items.add(item);
-				
-				
+				items.add(item);	
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

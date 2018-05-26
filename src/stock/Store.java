@@ -41,6 +41,34 @@ public class Store {
 		return inventory.getQuantity(item);
 	}
 	
+	public void loadItemProperties(List<Item> newItems) {
+		int temp = 0;
+		for (Item k : newItems) {
+			for (Item j : inventory.getItemSet()) {
+				if (k.getName() == j.getName()) {
+					temp = inventory.getQuantity(j);
+					inventory.removeItem(j, inventory.getQuantity(j));
+				}
+			}
+			inventory.addItem(k, temp);
+		}
+	}
+	
+	public void loadSalesLog(List<Object[]> sales) {
+		int grossProfit = 0;
+		Item soldItem = new Item(" ", 0.0, 0.0, 0, 0);
+		for (Object[] k : sales) {
+			for (Item j : inventory.getItemSet()) {
+				if (j.getName() == k[0]) {
+					soldItem = j;
+				}
+			}
+			inventory.removeItem(soldItem, (int)k[1]);
+			grossProfit += (soldItem.getPrice() * (int)k[1]);
+		}
+		capital += grossProfit;
+	}
+	
 	public void loadManifest(Manifest delivery) throws DeliveryException {
 		double grossCost = 0.0;
 		// If the manifest is not empty
@@ -214,6 +242,15 @@ public class Store {
 	
 	public static Store getInstance() {
 		return StoreHolder.INSTANCE;
+	}
+	
+	public Item getItemByName(String name) {
+		for (Item k : inventory.getItemSet()) {
+			if (k.getName() == name) {
+				return k;
+			}
+		}
+		return null;
 	}
 	
 	public String getName() {

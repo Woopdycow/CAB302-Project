@@ -39,9 +39,7 @@ public class ManifestWriter {
 				String name = item.getName();
 				int quantity = stock.getQuantity(item);
 				
-				//Object[] nameAndQuantity = {name, quantity};
-				
-				writer.write("hello" + "," + "world" + "\n");
+				Object[] nameAndQuantity = {name, quantity};
 			}
 		}
 		writer.flush();

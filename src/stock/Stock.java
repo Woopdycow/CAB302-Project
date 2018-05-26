@@ -29,7 +29,7 @@ public class Stock {
 			contents.remove(item);
 		}
 	}
-	
+
 	public void merge(Stock copiedStock) {		
 		for (Item key : copiedStock.getItemSet()) {
 			this.addItem(key, copiedStock.getQuantity(key));
