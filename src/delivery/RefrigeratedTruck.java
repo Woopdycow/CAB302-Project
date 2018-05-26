@@ -17,7 +17,7 @@ public class RefrigeratedTruck extends Truck {
 	}
 	
 	public void setCargo(Stock stock) throws TruckOverloadException {
-		if (stock.getTotal() >= cargoCapacity) {
+		if (stock.getTotal() > cargoCapacity) {
 			throw new TruckOverloadException();
 		} else {
 			cargo = stock;

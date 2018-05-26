@@ -12,7 +12,7 @@ public class StoreTests {
 	Manifest myManifest;
 	Truck truck1;
 	Truck truck2;
-	Item item1 = new Item("Toilet Paper", 106.22, 121.61, 320, 600);
+	Item item1 = new Item("Toilet Paper", 106.22, 121.61, 1000, 2000);
 	Item item2 = new Item("Vegemite", 13.26, 16.00, 150, 600);
 	Item item3 = new Item("Ice Cream", 3.50, 5.00, 30, 120, -18);
 	Item item4 = new Item("Bottled Water", 0.20, 1.50, 50, 600);
@@ -60,8 +60,6 @@ public class StoreTests {
 		
 		double charge = 2865.53;
 		
-		System.out.println(myStore.getCapital());
-		
 		assertEquals(100000.00 - charge, myStore.getCapital(), 0.0);
 	}
 	
@@ -81,8 +79,9 @@ public class StoreTests {
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		
-		stock1.addItem(item1, 3);
-		stock1.addItem(item2, 9);
+		stock1.addItem(item1, 560);
+		stock1.addItem(item2, 439);
+		stock2.addItem(item2, 120);
 		stock2.addItem(item3, 11);
 		stock2.addItem(item4, 69);
 		truck1 = new OrdinaryTruck();

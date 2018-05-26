@@ -50,7 +50,6 @@ public class Store {
 						// Total the price of all items
 						double tempCost = j.getCost() * i.getCargo().getQuantity(j);
 						grossCost += Math.round(tempCost * 100.0) / 100.0;
-						System.out.println("Cargo Cost: " + Math.round(tempCost * 100.0) / 100.0);
 					}
 					// Unload and unpack into store
 					inventory.merge(i.getCargo());
@@ -59,7 +58,6 @@ public class Store {
 					throw new DeliveryException();
 				}
 				// Add the truck expense
-				System.out.println(i.getType() + " Truck cost: " + (Math.round(i.getCost() * 100.0) / 100.0));
 				grossCost += (Math.round(i.getCost() * 100.0) / 100.0);
 			}
 		} else {
