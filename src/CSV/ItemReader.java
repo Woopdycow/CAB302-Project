@@ -12,16 +12,15 @@ public class ItemReader {
 
 	public ItemReader() {
 		
-		List<Item> output = ReadItemCSV("C:/Users/Jon/Desktop/SEM 1/CAB302/CSV/item_properties.csv");
+		//List<Item> output = ReadItemCSV(fileName);
 		
-		for (Item item : output) {
-			System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
-		}
+		//for (Item item : output) {
+			//System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
+		//}
 	}
 	
-	private static List<Item> ReadItemCSV(String fileName) {
+	public static List<Item> ReadItemCSV(String fileName) {
 		
-		String csvFile = "C:/Users/Jon/Desktop/SEM 1/CAB302/CSV/item_properties.csv";
 		String line = "";
 		String csvSplitBy = ",";
 		
@@ -29,7 +28,7 @@ public class ItemReader {
 		
 		items = new ArrayList<>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			
 		
 			while ((line = br.readLine()) != null) {

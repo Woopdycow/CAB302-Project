@@ -14,12 +14,8 @@ public class ManifestWriter {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void main(String[] args) throws TruckOverloadException, IOException {
-		CreateCSVManifest("test.csv");
-	}
 	
-	
-	private static void CreateCSVManifest(String fileName) throws TruckOverloadException, IOException {
+	public static void CreateCSVManifest(String fileName) throws TruckOverloadException, IOException {
 		
 		FileWriter writer = new FileWriter("test.csv");
 		
