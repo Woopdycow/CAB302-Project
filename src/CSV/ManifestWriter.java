@@ -21,6 +21,8 @@ public class ManifestWriter {
 		
 		Manifest manifest = Store.getInstance().getManifest();
 		
+		System.out.println(Store.getInstance().getManifest().toString());
+		
 		List<Truck> trucks = manifest.getTrucks();
 		
 		List<Object[]> output = new ArrayList<>();

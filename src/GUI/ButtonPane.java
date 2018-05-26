@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Button;
+
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -31,6 +32,7 @@ public class ButtonPane extends JPanel {
 
 	public ButtonPane() {
 		
+		Store myStore = Store.getInstance();
 		JFileChooser chooser = new JFileChooser();
 		
 		setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -68,7 +70,10 @@ public class ButtonPane extends JPanel {
 			       ItemReader reader = new ItemReader();
 			       List<Item> ItemList = reader.ReadItemCSV(chooser.getSelectedFile().getAbsolutePath());
 			       
+			       
+			       
 			       for (Item item : ItemList) {
+			    	   myStore.addItem(item, 0);
 						System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
 					}
 			    }
