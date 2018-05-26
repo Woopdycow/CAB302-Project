@@ -28,6 +28,7 @@ public class StoreTests {
 		myStore.addItem(item1, 30);
 		int amount = myStore.getItemQuantity(item1);
 		assertEquals(30, amount, 0.0);
+		myStore.removeItem(item1, 30);
 	}
 	
 	@Test
@@ -35,6 +36,7 @@ public class StoreTests {
 		Item item1 = new Item("Toilet Paper", 106.22, 121.61, 320, 600);
 		myStore.addItem(item1, 30);
 		assertEquals(600, myStore.getReorder().getQuantity(item1), 0.0);
+		myStore.removeItem(item1, 30);
 	}
 	
 	@Test
@@ -59,6 +61,15 @@ public class StoreTests {
 		myStore.loadManifest(myManifest);
 		
 		double charge = 2865.53;
+
+		System.out.println("TEST");
+		for (Truck k : myManifest.getTrucks()) {
+			System.out.println("Truck");
+			for (Item j : k.getCargo().getItemSet()) {
+				System.out.println(j.getName() + ":" + k.getCargo().getQuantity(j));
+			}
+		}
+		
 		
 		assertEquals(100000.00 - charge, myStore.getCapital(), 0.0);
 	}
@@ -73,7 +84,7 @@ public class StoreTests {
 		assertEquals(myStore.getName(), "SUPERMART");
 	}
 	
-	@Test
+	@Test(timeout=5000)
 	public void testGetManifest() throws TruckOverloadException {
 		
 		Stock stock1 = new Stock();
@@ -92,7 +103,7 @@ public class StoreTests {
 		myManifest = new Manifest();
 		myManifest.addTruck(truck1);
 		myManifest.addTruck(truck2);
-		
+
 		myStore.getManifest();
 		
 		assertEquals(myManifest, myStore.getManifest());
