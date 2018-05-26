@@ -8,7 +8,9 @@ import java.awt.Insets;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
+import stock.Item;
 import stock.Store;
 
 public class InfoPane extends JPanel {
@@ -18,6 +20,8 @@ public class InfoPane extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	Store myStore = Store.getInstance();
+	
 	/**
 	 * @author Jonathon Meyer
 	 */
@@ -72,10 +76,13 @@ public class InfoPane extends JPanel {
 		add(label, gbc);
 		
 		gbc.gridx = 250;
-		JTable table = new JTable(data, columnNames);
+		JTable table = new JTable(new DefaultTableModel (data, columnNames));
 		table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		table.setFillsViewportHeight(true);
 		table.setMinimumSize(new Dimension(200,200));
+		
+		
+		
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		gbc.gridx = 250;
@@ -85,6 +92,25 @@ public class InfoPane extends JPanel {
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.insets = new Insets(100,100,0,100);
 		add(scrollPane, gbc);
+
+		for (Item i : myStore.getStock().getItemSet()) {
+			String name = i.getName();
+			int quantity = (myStore.getStock().getQuantity(i));
+			double manuCost = i.getCost();
+			double sellPrice = i.getPrice();
+			int reorderPoint = i.getReorderPoint();
+			int reorderAmount = i.getReorderAmount();
+			double temp = i.getTemp();
+			
+			Object[] itemInfo = {name, quantity, manuCost, sellPrice, reorderPoint, reorderAmount, temp};
+			
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.addRow(itemInfo);
+		}
 		
+		
+		//Object[] itemInfoo = {"Beans", 800, 62.56, 104.20, 600, 1200, 10};
+		//DefaultTableModel model = (DefaultTableModel) table.getModel();
+		//model.addRow(itemInfoo);
 	}
 }
