@@ -9,7 +9,7 @@ import java.util.Map;
 import delivery.*;
 
 public class Store {	
-	private static final double STARTINGCAPITAL = 1000000.00;
+	private static final double STARTINGCAPITAL = 100000.00;
 	private static String name;
 	private static double capital;
 	private static Stock inventory;
@@ -48,7 +48,9 @@ public class Store {
 					// For each item in truck's cargo
 					for (Item j : i.getCargo().getItemSet()) {
 						// Total the price of all items
-						grossCost += (j.getCost() * i.getCargo().getQuantity(j));
+						double tempCost = j.getCost() * i.getCargo().getQuantity(j);
+						grossCost += Math.round(tempCost * 100.0) / 100.0;
+						System.out.println("Cargo Cost: " + Math.round(tempCost * 100.0) / 100.0);
 					}
 					// Unload and unpack into store
 					inventory.merge(i.getCargo());
@@ -57,7 +59,8 @@ public class Store {
 					throw new DeliveryException();
 				}
 				// Add the truck expense
-				grossCost += i.getCost();
+				System.out.println(i.getType() + " Truck cost: " + (Math.round(i.getCost() * 100.0) / 100.0));
+				grossCost += (Math.round(i.getCost() * 100.0) / 100.0);
 			}
 		} else {
 			// Manifest contains no trucks!

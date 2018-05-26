@@ -13,6 +13,11 @@ import stock.Store;
 public class InfoPane extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * @author Jonathon Meyer
 	 */
 	public InfoPane() {

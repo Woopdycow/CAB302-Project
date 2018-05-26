@@ -5,6 +5,7 @@ import stock.*;
 public class OrdinaryTruck extends Truck {
 
 	private static final int ORDINARYCAPACITY = 1000;
+	private static final String TRUCKTYPE = "Ordinary";
 	
 	
 	/**
@@ -24,7 +25,10 @@ public class OrdinaryTruck extends Truck {
 	}
 	
 	public double getCost() {
-		this.cost = 750 + (0.25 * cargo.getTotal());
+		this.cost = 750.00 + (0.25 * cargo.getTotal());
 		return cost;
+	}
+	public String getType() {
+		return TRUCKTYPE;
 	}
 }

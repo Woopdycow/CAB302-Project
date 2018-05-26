@@ -15,6 +15,11 @@ import stock.Store;
 public class TitlePane extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * @author Jonathon Meyer
 	 */
 	

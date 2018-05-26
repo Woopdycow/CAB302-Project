@@ -40,6 +40,9 @@ public class StoreTests {
 	@Test
 	public void testLoadManifest() throws TruckOverloadException, DeliveryException {		
 		
+		Stock stock1 = new Stock();
+		Stock stock2 = new Stock();
+		
 		stock1.addItem(item1, 3);
 		stock1.addItem(item2, 9);
 		stock2.addItem(item3, 11);
@@ -55,9 +58,11 @@ public class StoreTests {
 		
 		myStore.loadManifest(myManifest);
 		
-		double charge = 2865.28;
+		double charge = 2865.53;
 		
-		assertEquals(100000 - charge, myStore.getCapital(), 0.0);
+		System.out.println(myStore.getCapital());
+		
+		assertEquals(100000.00 - charge, myStore.getCapital(), 0.0);
 	}
 	
 	@Test
@@ -68,5 +73,29 @@ public class StoreTests {
 	public void testName() {
 		myStore = Store.getInstance();
 		assertEquals(myStore.getName(), "SUPERMART");
+	}
+	
+	@Test
+	public void testGetManifest() throws TruckOverloadException {
+		
+		Stock stock1 = new Stock();
+		Stock stock2 = new Stock();
+		
+		stock1.addItem(item1, 3);
+		stock1.addItem(item2, 9);
+		stock2.addItem(item3, 11);
+		stock2.addItem(item4, 69);
+		truck1 = new OrdinaryTruck();
+		truck2 = new RefrigeratedTruck();
+		truck1.setCargo(stock1);
+		truck2.setCargo(stock2);
+		
+		myManifest = new Manifest();
+		myManifest.addTruck(truck1);
+		myManifest.addTruck(truck2);
+		
+		myStore.getManifest();
+		
+		assertEquals(myManifest, myStore.getManifest());
 	}
 }

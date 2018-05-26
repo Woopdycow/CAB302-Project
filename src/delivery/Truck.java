@@ -7,6 +7,7 @@ public abstract class Truck {
 	double cost;
 	int cargoCapacity;
 	Stock cargo;
+	String type;
 	
 	/**
 	 * Constructor Method
@@ -26,4 +27,7 @@ public abstract class Truck {
 		return cargoCapacity;
 	}
 	
+	public String getType() {
+		return type;
+	}
 }

@@ -6,6 +6,7 @@ public class RefrigeratedTruck extends Truck {
 	
 	private double temp = 10.00;
 	private static final int REFRIGERATEDCAPACITY = 800;
+	private static final String TRUCKTYPE = "Refrigerated";
 	
 	/**
 	 * Constructor Method
@@ -21,6 +22,7 @@ public class RefrigeratedTruck extends Truck {
 		} else {
 			cargo = stock;
 		}
+		getTemp();
 	}
 	
 	public double getTemp() {
@@ -38,8 +40,11 @@ public class RefrigeratedTruck extends Truck {
 	}
 	
 	public double getCost() {
-		this.cost = 900 + 200 * Math.pow(0.7, (temp / 5));
+		this.cost = 900 + (200 * Math.pow(0.7, (temp / 5)));
 		return cost;
 	}
-
+	
+	public String getType() {
+		return TRUCKTYPE;
+	}
 }
