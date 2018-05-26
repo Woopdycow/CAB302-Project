@@ -19,6 +19,7 @@ public class Item {
 		this.price = price;
 		this.reorderPoint = reorderPoint;
 		this.reorderAmount = reorderAmount;
+		this.temp = 11.0;
 		this.dryGoods = true;
 	}
 	
