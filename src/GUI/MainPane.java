@@ -11,6 +11,7 @@ public class MainPane extends JFrame {
 
 	private TitlePane titlePane;
 	private InfoPane infoPane;
+	private ButtonPane buttonPane;
 	
 	/**
 	 * @author Jonathon Meyer
@@ -24,11 +25,13 @@ public class MainPane extends JFrame {
 		
 		titlePane = new TitlePane();
 		infoPane = new InfoPane();
+		buttonPane = new ButtonPane();
 		
 		Container window = getContentPane();
 		
 		window.add(titlePane, BorderLayout.NORTH);
 		window.add(infoPane, BorderLayout.CENTER);
+		//window.add(buttonPane, BorderLayout.SOUTH);
 		
 	}
 

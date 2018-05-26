@@ -86,5 +86,26 @@ public class InfoPane extends JPanel {
 		gbc.insets = new Insets(100,100,0,100);
 		add(scrollPane, gbc);
 		
+		GridBagConstraints gbx = new GridBagConstraints();
+		
+		
+		JButton button1 = new JButton("Button 1");
+		
+		//gbc.weightx = 0.5;
+		gbx.gridx = 0;
+		gbx.gridy = 900;
+		gbx.ipadx = 0;
+		gbx.ipady = 0;
+		gbx.gridheight = 50;
+		gbx.insets = new Insets(0,0,1,0);
+		gbx.fill = GridBagConstraints.BOTH;
+		gbx.anchor = GridBagConstraints.PAGE_END;
+		
+		add(button1, gbx);
+		
+		JButton button2 = new JButton("Button 2");
+		
+		add(button2, gbx);
+		
 	}
 }
