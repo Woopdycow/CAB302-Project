@@ -1,4 +1,4 @@
-package stock;
+package tests;
 
 import static org.junit.Assert.*;
 import delivery.*;
@@ -79,9 +79,9 @@ public class StoreTests {
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		
-		stock1.addItem(item1, 560);
-		stock1.addItem(item2, 439);
-		stock2.addItem(item2, 120);
+		stock1.addItem(item1, 30);
+		stock1.addItem(item2, 40);
+		stock2.addItem(item2, 30);
 		stock2.addItem(item3, 11);
 		stock2.addItem(item4, 69);
 		truck1 = new OrdinaryTruck();

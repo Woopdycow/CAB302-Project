@@ -1,6 +1,8 @@
-package stock;
+package tests;
 
 import org.junit.*;
+
+import stock.Item;
 
 import static org.junit.Assert.assertEquals;
 

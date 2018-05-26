@@ -1,7 +1,11 @@
-package delivery;
+package tests;
 
 import stock.*;
 import org.junit.Assert.*;
+
+import delivery.RefrigeratedTruck;
+import delivery.TruckOverloadException;
+
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -44,7 +48,7 @@ public class RefrigeratedTruckTests {
 			for (int i = 0; i < myTruck.getCargo().getQuantity(getItem); i++)
 				outputTest += getItem.getName();
 		}
-		assertEquals("VegemiteVegemiteVegemiteVegemiteGrapesGrapesGrapesGrapesGrapesGrapesGrapesCheeseCheeseCheese", outputTest);
+		assertEquals("VegemiteVegemiteVegemiteVegemiteCheeseCheeseCheeseGrapesGrapesGrapesGrapesGrapesGrapesGrapes", outputTest);
 	}
 	
 	@Test
