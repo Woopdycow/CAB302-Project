@@ -17,7 +17,7 @@ public class ManifestWriter {
 	
 	public static void CreateCSVManifest(String fileName) throws TruckOverloadException, IOException {
 		
-		FileWriter writer = new FileWriter("test.csv");
+		FileWriter writer = new FileWriter("manifest.csv");
 		
 		Manifest manifest = Store.getInstance().getManifest();
 		
@@ -28,6 +28,7 @@ public class ManifestWriter {
 		for (Truck truck : trucks) {
 			String type = truck.getType();
 			Stock stock = truck.getCargo();
+			System.out.print(type);
 			
 			writer.write(">" + type + "\n");
 			
@@ -36,6 +37,7 @@ public class ManifestWriter {
 				int quantity = stock.getQuantity(item);
 				
 				Object[] nameAndQuantity = {name, quantity};
+				writer.write(nameAndQuantity[0] + "," + nameAndQuantity[1]);
 			}
 		}
 		writer.flush();

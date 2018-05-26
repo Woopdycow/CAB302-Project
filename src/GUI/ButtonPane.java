@@ -85,6 +85,7 @@ public class ButtonPane extends JPanel {
 				if (chooser.showSaveDialog(button2) == JFileChooser.APPROVE_OPTION) {
 					try {
 						ManifestWriter.CreateCSVManifest(chooser.getSelectedFile().getAbsolutePath());
+						System.out.println("Exported");
 					} catch (TruckOverloadException | IOException e1) {
 						JOptionPane.showMessageDialog(null, "Error");
 						e1.printStackTrace();
@@ -138,6 +139,10 @@ public class ButtonPane extends JPanel {
 		field.setEditable(false);
 		
 		
+	}
+	
+	public void handleException(String errorDescription) {
+		JOptionPane.showMessageDialog(null, errorDescription);
 	}
 
 }
