@@ -12,16 +12,15 @@ public class ItemReader {
 
 	public ItemReader() {
 		
-		List<Item> output = ReadItemCSV("C:/Users/Jon/Desktop/SEM 1/CAB302/CSV/item_properties.csv");
+		//List<Item> output = ReadItemCSV(fileName);
 		
-		for (Item item : output) {
-			System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
-		}
+		//for (Item item : output) {
+			//System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
+		//}
 	}
 	
-	private static List<Item> ReadItemCSV(String fileName) {
+	public static List<Item> ReadItemCSV(String fileName) {
 		
-		String csvFile = "C:/Users/Jon/Desktop/SEM 1/CAB302/CSV/item_properties.csv";
 		String line = "";
 		String csvSplitBy = ",";
 		
@@ -29,7 +28,13 @@ public class ItemReader {
 		
 		items = new ArrayList<>();
 		
+<<<<<<< HEAD
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			
+		
+=======
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+>>>>>>> 1c6db9723e2e85567d2d35e49423c1dcf4d433f3
 			while ((line = br.readLine()) != null) {
 				String[] itemInfo = line.split(csvSplitBy);
 				Item item = newItem(itemInfo);
