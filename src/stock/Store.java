@@ -1,7 +1,10 @@
 package stock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import delivery.*;
 
@@ -61,37 +64,124 @@ public class Store {
 			throw new DeliveryException();
 		}
 		capital -= grossCost;
-		
 	}
 	
-	public Manifest getManifest() {
+	public Manifest getManifest() throws TruckOverloadException {
 		Manifest resupply = new Manifest();
 		Stock reorder = getReorder();
-		Stock dryGoods = new Stock();
-		List<Item> coldGoods = new ArrayList<Item>();
-		Stock sortedColdest = new Stock();
+		List<Item> dryGoods = new ArrayList<Item>();
+		Stock coldGoods = new Stock();
+		List<Item> sortedColdest = new ArrayList<Item>();
 		Item coldestItem;
 		//Split items based on required transport
 		for (Item k : reorder.getItemSet()) {
 			if (k.isDryGoods()) {
-				dryGoods.addItem(k, reorder.getQuantity(k));
+				dryGoods.add(k);
 			} else {
-				coldGoods.add(k);
+				coldGoods.addItem(k, reorder.getQuantity(k));
 			}
 		}
 		//Produce new Stock of sorted cold items: sortedColdest.
-		coldestItem = coldGoods.get(0);
-		for (int i = 0; i < coldGoods.size(); i++) {
-			for (int j = 0; j < coldGoods.size(); i++) {
-				if (coldGoods.get(j).getTemp() < coldestItem.getTemp()) {
-					coldestItem = coldGoods.get(j);
+		coldestItem = coldGoods.getItemSet().iterator().next();
+		for (int i = 0; i < coldGoods.getItemSet().size(); i++) {
+			for (Item k : coldGoods.getItemSet()) {
+				if (k.getTemp() < coldestItem.getTemp()) {
+					coldestItem = k;
 				}
 			}
-			sortedColdest.addItem(coldestItem, reorder.getQuantity(coldestItem) );
-			coldGoods.remove(coldestItem);
+			sortedColdest.add(coldestItem);
 		}
-		
-		
+
+		int refrigeratedCapacity = new RefrigeratedTruck().getCapacity();
+		int ordinaryCapacity = new OrdinaryTruck().getCapacity();
+		List<Truck> trucks = new ArrayList<Truck>();
+		Stock cargo;
+		//While there are items left in the reorder
+		for (int i = 0; reorder.getTotal() > 0; i++) {
+			boolean requiresCooling = false;
+			//Create new stock in ArrayList
+			cargo = new Stock();
+			//If there are still cold goods to be loaded
+			if (sortedColdest.size() > 0) {
+				//Start from the first
+				for (Item k : sortedColdest) {
+					//If there is room for all of it, add it all
+					if ((cargo.getTotal() + reorder.getQuantity(k)) < refrigeratedCapacity) {
+						//Add the reorder quantity of the item to the new cargo
+						cargo.addItem(k, reorder.getQuantity(k));
+						//Remove the current coldest item from the sorted list
+						sortedColdest.remove(k);
+						//Remove all of the item from the reorder list
+						reorder.removeItem(k, reorder.getQuantity(k));
+						//Truck will now require cooling
+						requiresCooling = true;
+					//Otherwise add as much as you can
+					} else if (cargo.getTotal() < refrigeratedCapacity){
+						//Add as much of the item you can to the new cargo
+						cargo.addItem(k, (refrigeratedCapacity - cargo.getTotal()));
+						//Remove only as much as you added to the new stock
+						reorder.removeItem(k, (refrigeratedCapacity - cargo.getTotal()));
+						//Truck will now require cooling
+						requiresCooling = true;
+					}
+				}
+			}
+			//If there are dry goods still to be loaded after the cold items have
+			if (dryGoods.size() > 0) {
+				//Is there already cold items in the cargo?
+				if (requiresCooling) {
+					//For each of the dryGoods left, are put into cold trucks where possible
+					for (Item k : dryGoods) {
+						//If there is room for all of it, add it all
+						if ((cargo.getTotal() + reorder.getQuantity(k)) < refrigeratedCapacity) {
+							//Add the reorder quantity of the item to the new cargo
+							cargo.addItem(k, reorder.getQuantity(k));
+							//Remove the current coldest item from the sorted list
+							sortedColdest.remove(k);
+							//Remove all of the item from the reorder list
+							reorder.removeItem(k, reorder.getQuantity(k));
+						//Otherwise add as much as you can
+						} else if (cargo.getTotal() < refrigeratedCapacity){
+							//Add as much of the item you can to the new cargo
+							cargo.addItem(k, (refrigeratedCapacity - cargo.getTotal()));
+							//Remove only as much as you added to the new stock
+							reorder.removeItem(k, (refrigeratedCapacity - cargo.getTotal()));
+						}
+					}
+				} else {
+					//If there is no cold goods already in the cargo, ordinary trucks are used.
+					for (Item k : dryGoods) {
+						//If there is room for all of it, add it all
+						if ((cargo.getTotal() + reorder.getQuantity(k)) < ordinaryCapacity) {
+							//Add the reorder quantity of the item to the new cargo
+							cargo.addItem(k, reorder.getQuantity(k));
+							//Remove the current coldest item from the sorted list
+							sortedColdest.remove(k);
+							//Remove all of the item from the reorder list
+							reorder.removeItem(k, reorder.getQuantity(k));
+						//Otherwise add as much as you can
+						} else if (cargo.getTotal() < ordinaryCapacity){
+							//Add as much of the item you can to the new cargo
+							cargo.addItem(k, (ordinaryCapacity - cargo.getTotal()));
+							//Remove only as much as you added to the new stock
+							reorder.removeItem(k, (ordinaryCapacity - cargo.getTotal()));
+						}
+					}
+				}
+			}
+			//cargo has been properly populated with items.
+			Truck newTruck;
+			if (requiresCooling) {
+				newTruck = new RefrigeratedTruck();
+				newTruck.setCargo(cargo);
+			} else {
+				newTruck = new OrdinaryTruck();
+				newTruck.setCargo(cargo);
+			}
+			resupply.addTruck(newTruck);
+		}
+
+			
 		return resupply;
 	}
 	
