@@ -3,8 +3,8 @@ package tests;
 import stock.*;
 import org.junit.Assert.*;
 
+import delivery.OrdinaryTruck;
 import delivery.RefrigeratedTruck;
-import delivery.TruckOverloadException;
 
 import org.junit.*;
 
@@ -32,7 +32,7 @@ public class RefrigeratedTruckTests {
 	}
 	
 	@Test
-	public void testCargo() throws TruckOverloadException {
+	public void testCargo() {
 		String outputTest = "";
 		myTruck = new RefrigeratedTruck();
 		Stock stock1 = new Stock();
@@ -52,7 +52,7 @@ public class RefrigeratedTruckTests {
 	}
 	
 	@Test
-	public void testGetTempUpdate() throws TruckOverloadException {
+	public void testGetTempUpdate() {
 		myTruck = new RefrigeratedTruck();
 		Stock myStock = new Stock();
 		Item myItem = new Item("Cheese", 14.6, 16.4, 300, 600, 5.0);
@@ -64,7 +64,11 @@ public class RefrigeratedTruckTests {
 	@Test
 	public void testGetCost() {
 		myTruck = new RefrigeratedTruck();
-		double testPrice = (900 + (200 * (java.lang.Math.pow(0.7, myTruck.getTemp() * 0.2))));
+		Stock myStock = new Stock();
+		Item myItem = new Item("Cheese", 14.6, 16.4, 300, 600, 5.0);
+		myStock.addItem(myItem, 1);
+		myTruck.setCargo(myStock);
+		double testPrice = 900 + (200 * Math.pow(0.7, (5.0 / 5.0)));
 		assertEquals(myTruck.getCost(), testPrice, 0.0);
 	}
 	
@@ -74,13 +78,9 @@ public class RefrigeratedTruckTests {
 		assertEquals(800, myTruck.getCapacity());
 	}
 	
-	@Test(expected = TruckOverloadException.class)
-	public void testOverload() throws TruckOverloadException {
+	@Test
+	public void testGetType() {
 		myTruck = new RefrigeratedTruck();
-		Stock stock1 = new Stock();
-		Item item1 = new Item("Cheese", 10.0, 15.0, 320, 600);
-		stock1.addItem(item1, 801);
-		myTruck.setCargo(stock1);
+		assertEquals("Refrigerated", myTruck.getType());
 	}
-
 }

@@ -5,8 +5,6 @@ import stock.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import delivery.*;
-
 public class Manifest {
 
 	public List<Truck> trucks;

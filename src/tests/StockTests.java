@@ -174,4 +174,12 @@ public class StockTests {
 
 		assertEquals(112, stock1.getTotal(), 0.0);
 	}
+	
+	@Test
+	public void testAddNoneExitene() {
+		Stock stock1 = new Stock();
+		Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+		stock1.addItem(myItem1, 0);
+		assertEquals(true, stock1.itemExists(myItem1));
+	}
 }
