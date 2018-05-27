@@ -20,12 +20,8 @@ public class OrdinaryTruck extends Truck {
 	 * @author Jonathon Meyer
 	 * @param stock The stock object to become the truck's cargo.
 	 */
-	public void setCargo(Stock stock) throws TruckOverloadException {
-		if (stock.getTotal() > cargoCapacity) {
-			throw new TruckOverloadException();
-		} else {
-			cargo = stock;
-		}
+	public void setCargo(Stock stock) {
+		cargo = stock;
 	}
 	
 	/**

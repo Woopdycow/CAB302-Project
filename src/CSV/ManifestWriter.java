@@ -15,7 +15,7 @@ public class ManifestWriter {
 	}
 	
 	
-	public static void CreateCSVManifest(String fileName) throws TruckOverloadException, IOException {
+	public static void CreateCSVManifest(String fileName) throws IOException {
 		
 		FileWriter writer = new FileWriter("manifest.csv");
 		

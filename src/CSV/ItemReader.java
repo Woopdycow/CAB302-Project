@@ -6,20 +6,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import delivery.CSVFormatException;
 import stock.Item;
 
 public class ItemReader {
 
 	public ItemReader() {
+		String fileName = "";
+		try {
+			List<Item> output = ReadItemCSV(fileName);
+		} catch (Exception e) {
+			//e.getMessage()
+		}
 		
-		//List<Item> output = ReadItemCSV(fileName);
-		
-		//for (Item item : output) {
-			//System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
-		//}
 	}
 	
-	public static List<Item> ReadItemCSV(String fileName) {
+	public static List<Item> ReadItemCSV(String fileName) throws CSVFormatException {
+		
+		if (!fileName.endsWith(".csv")) {
+			throw new CSVFormatException("File does not have '.csv' extension!");
+		}
 		
 		String line = "";
 		String csvSplitBy = ",";
@@ -29,20 +35,24 @@ public class ItemReader {
 		items = new ArrayList<>();		
 
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
 			while ((line = br.readLine()) != null) {
 				String[] itemInfo = line.split(csvSplitBy);
 				Item item = newItem(itemInfo);
 				items.add(item);	
 			}
-		} catch (IOException e) {
+		} catch ( IOException e) {
 			e.printStackTrace();
-			}
+		}
+		if (items.size() < 1) {
+			throw new CSVFormatException("File produced no items.");
+		}
 		return items;
 		}
 	
-	private static Item newItem(String[] input) {
-		
+	private static Item newItem(String[] input) throws CSVFormatException {
+		if (input.length < 1) {
+			throw new CSVFormatException("No properties discovered for item.");
+		}
 		String name = input[0];
 		double manuCost = new Double(input[1]);
 		double sellPrice = new Double(input[2]);

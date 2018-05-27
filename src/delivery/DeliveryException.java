@@ -1,29 +1,24 @@
 package delivery;
 
+/**
+ * Thrown when delivery manifest is unable to be received properly.
+ * @author Bryan Kassulke
+ */
 public class DeliveryException extends Exception {
 
+	/**
+	 * Constructs a DeliveryException with null as its error message string.
+	 */
 	public DeliveryException() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	public DeliveryException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructs a DeliveryException with a error message string.
+	 * 
+	 * @param messsage A description of the exception's cause.
+	 */
+	public DeliveryException(String message) {
+		super(message);
 	}
-
-	public DeliveryException(Throwable arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DeliveryException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DeliveryException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
-		super(arg0, arg1, arg2, arg3);
-		// TODO Auto-generated constructor stub
-	}
-
 }

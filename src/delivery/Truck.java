@@ -17,7 +17,7 @@ public abstract class Truck {
 	
 	public abstract double getCost();
 	
-	public abstract void setCargo(Stock stock) throws TruckOverloadException;
+	public abstract void setCargo(Stock stock) ;
 	
 	/**
 	 * Gets the Truck's cargo Stock object.

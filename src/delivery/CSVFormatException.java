@@ -1,29 +1,24 @@
 package delivery;
 
+/**
+ * Thrown by file readers when format is not recognised.
+ * @author Bryan Kassulke
+ */
 public class CSVFormatException extends Exception {
 
+	/**
+	 * Constructs a CSVException with null as its error message string.
+	 */
 	public CSVFormatException() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
+	/**
+	 * Constructs a CSVException with a error message string.
+	 * 
+	 * @param messsage A description of the exception's cause.
+	 */
 	public CSVFormatException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
-
-	public CSVFormatException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public CSVFormatException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public CSVFormatException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
-	}
-
 }

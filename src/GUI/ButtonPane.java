@@ -20,11 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import CSV.ItemReader;
 import CSV.ManifestWriter;
-import delivery.TruckOverloadException;
 import stock.Item;
 import stock.Store;
 
@@ -91,7 +89,7 @@ public class ButtonPane extends JPanel {
 					try {
 						ManifestWriter.CreateCSVManifest(chooser.getSelectedFile().getAbsolutePath());
 						System.out.println("Exported");
-					} catch (TruckOverloadException | IOException e1) {
+					} catch (IOException e1) {
 						JOptionPane.showMessageDialog(null, "Error");
 						e1.printStackTrace();
 					}
