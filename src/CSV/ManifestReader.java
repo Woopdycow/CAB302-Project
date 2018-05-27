@@ -20,14 +20,14 @@ public class ManifestReader {
 		String fileName = "";
 		try {
 			Manifest manifest = ReadManifestCSV(fileName);
-		} catch(Exception e) {
-			//e.getMessage()
+		} catch(CSVFormatException e) {
+			e.getMessage();
 		}
 		
 		
 	}
 	
-	private static Manifest ReadManifestCSV(String fileName) throws CSVFormatException {
+	public static Manifest ReadManifestCSV(String fileName) throws CSVFormatException {
 		
 		if (!fileName.endsWith(".csv")) {
 			throw new CSVFormatException("File does not have '.csv' extension!");
@@ -45,7 +45,7 @@ public class ManifestReader {
 			//Print each line to an array
 			List<String> lines = new ArrayList<>();
 			for (int i = 0; (line = br.readLine()) != null; i++) {
-				lines.set(i, line);
+				lines.add(line);
 			}
 
 			int items = 0;
@@ -61,11 +61,15 @@ public class ManifestReader {
 						throw new CSVFormatException("No items detected for truck.");
 					}
 					//Create truck
-					if (lines.get(i) == ">Refrigerated") {
+					if (lines.get(i).startsWith(">Re")) {
 						newTruck = new RefrigeratedTruck();
 					} else if (lines.get(i) == ">Ordinary") {
 						newTruck = new OrdinaryTruck();
 					} else {
+
+						System.out.println(lines.get(i));
+						System.out.println(i);
+						
 						throw new CSVFormatException("Invalid truck type.");
 					}
 					Stock cargo = new Stock();
@@ -73,6 +77,7 @@ public class ManifestReader {
 						String[] itemInfo = lines.get(j).split(csvSplitBy);
 						int quantity = new Integer(itemInfo[1]);
 						cargo.addItem(myStore.getItemByName(itemInfo[0]), quantity);
+						System.out.println(itemInfo[0]);
 					}
 					if (cargo.getTotal() == 0) {
 						throw new CSVFormatException("No items for truck cargo.");
@@ -81,7 +86,7 @@ public class ManifestReader {
 					delivery.addTruck(newTruck);
 				}
 			} else {
-				//Throw read error
+				throw new CSVFormatException("Not correct manifest format.");
 			}
 			
 

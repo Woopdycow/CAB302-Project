@@ -4,7 +4,7 @@ import stock.*;
 
 public class RefrigeratedTruck extends Truck {
 	
-	private double temp = 10.00;
+	private double temp = 11.00;
 	private static final int REFRIGERATEDCAPACITY = 800;
 	private static final String TRUCKTYPE = "Refrigerated";
 	
@@ -29,11 +29,11 @@ public class RefrigeratedTruck extends Truck {
 	/**
 	 * Gets the temperature of the truck. 
 	 * @author Jonathon Meyer
-	 * @return Returns the tempurature expressed as a double.
+	 * @return Returns the temperature expressed as a double.
 	 */
 	public double getTemp() {
 		if (cargo != null) {
-			for (Item key : cargo.getItemSet()){ 
+			for (Item key : cargo.getItemSet()){
 				if (key.getTemp() < temp) {
 					temp = key.getTemp();
 				}
