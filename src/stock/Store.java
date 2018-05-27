@@ -81,17 +81,21 @@ public class Store {
 	 * @throws StockException 
 	 */
 	public void loadItemProperties(List<Item> newItems) throws StockException {
-		int temp = 0;
-		for (Item k : newItems) {
-			for (Item j : inventory.getItemSet()) {
-				if (k.getName() == j.getName()) {
-					temp = inventory.getQuantity(j);
-					inventory.removeItem(j, inventory.getQuantity(j));
-					inventory.addItem(k, temp);
-					itemIdentities.remove(j);
-					itemIdentities.add(k);
+		try {
+			int temp = 0;
+			for (Item k : newItems) {
+				for (Item j : inventory.getItemSet()) {
+					if (k.getName() == j.getName()) {
+						temp = inventory.getQuantity(j);
+						inventory.removeItem(j, inventory.getQuantity(j));
+						inventory.addItem(k, temp);
+						itemIdentities.remove(j);
+						itemIdentities.add(k);
+					}
 				}
 			}
+		} catch (Exception e) {
+			//e.getMessage();
 		}
 	}
 	
@@ -138,7 +142,10 @@ public class Store {
 					}
 					// Unload and unpack into store
 					inventory.merge(i.getCargo());
-				} 
+				} else {
+					// Manifest contains no trucks!
+					throw new DeliveryException("Loaded manifest's trucks are missing cargo.");
+				}
 				// Add the truck expense
 				grossCost += (Math.round(i.getCost() * 100.0) / 100.0);
 			}

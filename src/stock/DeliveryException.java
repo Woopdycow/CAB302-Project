@@ -1,4 +1,4 @@
-package delivery;
+package stock;
 
 /**
  * Thrown when delivery manifest is unable to be received properly.
