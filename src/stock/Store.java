@@ -21,6 +21,7 @@ public class Store {
 		name = "SUPERMART";
 		capital = STARTINGCAPITAL;
 		inventory = new Stock();
+		itemIdentities = new ArrayList<Item>();
 	}
 
 	/**
