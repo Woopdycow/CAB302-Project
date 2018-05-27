@@ -9,7 +9,7 @@ public class Store {
 	private static final double STARTINGCAPITAL = 100000.00;
 	private static String name;
 	private static double capital;
-	private static List<Item> itemIdentities;
+	private static Stock itemIdentities;
 	private static Stock inventory;
 	
 
@@ -21,7 +21,7 @@ public class Store {
 		name = "SUPERMART";
 		capital = STARTINGCAPITAL;
 		inventory = new Stock();
-		itemIdentities = new ArrayList<Item>();
+		itemIdentities = new Stock();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Store {
 		name = "SUPERMART";
 		capital = STARTINGCAPITAL;
 		inventory = new Stock();
-		itemIdentities = new ArrayList<Item>();
+		itemIdentities = new Stock();
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class Store {
 	 */
 	public void addItem(Item imported, int amount) {
 		inventory.addItem(imported, amount);
-		itemIdentities.add(imported);
+		itemIdentities.addItem(imported, 1);
 	}
 	
 	/**
@@ -97,8 +97,8 @@ public class Store {
 						temp = inventory.getQuantity(j);
 						inventory.removeItem(j, inventory.getQuantity(j));
 						inventory.addItem(k, temp);
-						itemIdentities.remove(j);
-						itemIdentities.add(k);
+						itemIdentities.removeItem(j, 1);
+						itemIdentities.addItem(k, 1);
 					}
 				}
 			}
@@ -135,6 +135,7 @@ public class Store {
 	 * @throws DeliveryException Throw if there are miscellaneous errors accessing information.
 	 */
 	public void loadManifest(Manifest delivery) throws DeliveryException {
+		
 		double grossCost = 0.0;
 		// If the manifest is not empty
 		if (!delivery.getTrucks().isEmpty()) {
@@ -327,8 +328,9 @@ public class Store {
 	 * @return The item of which the name belongs to.
 	 */
 	public Item getItemByName(String name) {
-		for (Item k : itemIdentities) {
-			if (k.getName() == name) {
+		for (Item k : itemIdentities.getItemSet()) {
+			if (k.getName().contains(name) || name == k.getName()) {
+				System.out.println(k.getName());
 				return k;
 			}
 		}

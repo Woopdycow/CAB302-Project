@@ -84,9 +84,7 @@ public class ButtonPane extends JPanel {
 						
 						for (Item item : ItemList) {
 					    	   myStore.getInstance().addItem(item, 0);
-					    	   System.out.println(myStore.getInstance().getItemByName("rice").getCost());
-								System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
-							}
+						}
 					} catch (CSVFormatException e1) {
 						handleException("CSV Format is not correct");
 						e1.printStackTrace();

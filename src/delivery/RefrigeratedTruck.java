@@ -23,7 +23,6 @@ public class RefrigeratedTruck extends Truck {
 	 */
 	public void setCargo(Stock stock) {
 		cargo = stock;
-		getTemp();
 	}
 	
 	/**
