@@ -12,9 +12,9 @@ public class MainPane extends JFrame {
 
 	private TitlePane titlePane;
 	private InfoPane infoPane;
-	private ButtonPane buttonPane;
 	
 	/**
+	 * Creates the GUI window, placing each item within using BorderLayout.
 	 * @author Jonathon Meyer
 	 */
 	

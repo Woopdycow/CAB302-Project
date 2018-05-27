@@ -1,12 +1,13 @@
 package CSV;
 
 import java.io.BufferedReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import GUI.ButtonPane;
+import GUI.InfoPane;
 import delivery.CSVFormatException;
 import delivery.Manifest;
 import delivery.OrdinaryTruck;
@@ -15,7 +16,11 @@ import delivery.Truck;
 import stock.Item;
 import stock.Stock;
 import stock.Store;
-
+/**
+ * Reads a given CSV file and converts it into a Manifest object for use.
+ * @author Bryan Kassulke
+ *
+ */
 public class ManifestReader {
 
 	public ManifestReader() {
@@ -23,7 +28,7 @@ public class ManifestReader {
 		try {
 			Manifest manifest = ReadManifestCSV(fileName);
 		} catch(CSVFormatException e) {
-			ButtonPane.handleException(e.getMessage());
+			InfoPane.handleException(e.getMessage());
 		}
 		
 		
@@ -81,7 +86,7 @@ public class ManifestReader {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			InfoPane.handleException(e.getMessage());
 		}
 		return delivery;
 	}

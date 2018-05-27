@@ -1,24 +1,30 @@
 package CSV;
 
 import java.io.BufferedReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import GUI.InfoPane;
 import delivery.CSVFormatException;
 import delivery.Manifest;
 
 
 
 public class SalesLogReader {
+	/**
+	 * 
+	 * @param filename The directory and filename of the file to be analysed
+	 */
 
 	public SalesLogReader(String filename) {
 		String fileName = "";
 		try {
 			List<Object[]> output = ReadSalesLogCSV(fileName);
 		} catch(Exception e) {
-			//e.getMessage()
+			InfoPane.handleException(e.getMessage());
 		}
 	}
 	
@@ -44,7 +50,7 @@ public class SalesLogReader {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			InfoPane.handleException(e.getMessage());
 			}
 		return salesLog;
 	}

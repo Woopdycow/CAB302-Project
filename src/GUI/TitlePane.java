@@ -20,6 +20,7 @@ public class TitlePane extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Contains the title at the top of the GUI screen.
 	 * @author Jonathon Meyer
 	 */
 	

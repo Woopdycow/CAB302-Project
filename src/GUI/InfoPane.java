@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.ComponentOrientation;
 
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -30,7 +31,12 @@ import stock.Store;
 
 public class InfoPane extends JPanel {
 	
-	private final long serialVersionUID = 1L;
+	/**
+	 * Main GUI element containing Capital, Item table and buttons. 
+	 * All event listeners are handled in this class.
+	 * @author Jonathon Meyer
+	 */
+	private static final long serialVersionUID = 1L;
 	Store myStore = Store.getInstance();
 	JFileChooser chooser = new JFileChooser();
 	
@@ -251,8 +257,9 @@ public class InfoPane extends JPanel {
 								DefaultTableModel model = (DefaultTableModel) table.getModel();
 								model.addRow(itemInfo);
 							}
-						
-				    }
+							field.setText("$" + decimals.format(Store.getInstance().getCapital()));
+							model.fireTableDataChanged();
+						}
 				    }
 				}
 			});
@@ -273,9 +280,9 @@ public class InfoPane extends JPanel {
 						} catch (StockException e1) {
 							handleException("Stock Exception");
 						}
-						
-						model.fireTableDataChanged();
 					}
+					model.fireTableDataChanged();
+					field.setText("$" + decimals.format(Store.getInstance().getCapital()));
 				}
 			});
 			
@@ -301,7 +308,11 @@ public class InfoPane extends JPanel {
 							}
 							System.out.println("Imported.");
 						}
+					model.fireTableDataChanged();
+					field.setText("$" + decimals.format(Store.getInstance().getCapital()));
 					}
+				
+				
 			});
 			
 		}

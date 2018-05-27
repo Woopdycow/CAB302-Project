@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JFrame;
+
 import javax.swing.SwingUtilities;
 
 import stock.Store;
@@ -8,6 +9,7 @@ import stock.Store;
 public class GUIMain {
 	
 	/**
+	 * Main window to incorporate all GUI elements.
 	 * @author Jonathon Meyer
 	 */
 	private static final long serialVersionUID = 1L;
@@ -22,7 +24,7 @@ public class GUIMain {
 				GUI.setSize(WIDTH, HEIGHT);
 				GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				GUI.setVisible(true);
-				GUI.setResizable(true);
+				GUI.setResizable(false);
 			}
 		});
 	}

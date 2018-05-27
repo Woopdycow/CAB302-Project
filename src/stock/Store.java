@@ -3,6 +3,7 @@ package stock;
 import java.util.ArrayList;
 import java.util.List;
 
+import GUI.InfoPane;
 import delivery.*;
 
 public class Store {	
@@ -68,7 +69,7 @@ public class Store {
 		try {
 			inventory.removeItem(removed, amount);
 		} catch(Exception e) {
-			//e.getMessage()
+			InfoPane.handleException(e.getMessage());
 		}
 	}
 	
@@ -103,7 +104,7 @@ public class Store {
 				}
 			}
 		} catch (Exception e) {
-			//e.getMessage();
+			InfoPane.handleException(e.getMessage());
 		}
 	}
 	

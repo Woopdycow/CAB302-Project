@@ -1,22 +1,29 @@
 package CSV;
 
 import java.io.BufferedReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import GUI.InfoPane;
 import delivery.CSVFormatException;
 import stock.Item;
 
 public class ItemReader {
 
 	public ItemReader() {
+		/**
+		 * Reads a given CSV file and outputs a list of items.
+		 * 
+		 * @author Jonathon Meyer
+		 */
 		String fileName = "";
 		try {
 			List<Item> output = ReadItemCSV(fileName);
 		} catch (Exception e) {
-			//e.getMessage()
+			InfoPane.handleException(e.getMessage());
 		}
 		
 	}
@@ -41,7 +48,7 @@ public class ItemReader {
 				items.add(item);	
 			}
 		} catch ( IOException e) {
-			e.printStackTrace();
+			InfoPane.handleException(e.getMessage());
 		}
 		if (items.size() < 1) {
 			throw new CSVFormatException("File produced no items.");

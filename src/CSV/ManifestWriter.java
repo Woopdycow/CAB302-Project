@@ -1,20 +1,29 @@
 package CSV;
 
 import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import delivery.*;
 import stock.*;
+/**
+ *  Creates a CSV file containing a manifest in a given format. This can be used to import into
+ *   the system.
+ * @author Jonathon Meyer
+ *
+ */
 
 public class ManifestWriter {
-
-	public ManifestWriter() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+	/**
+	 * Creates a CSV file containing a manifest in a given format. This can be used to import into
+	 * the system.
+	 * @param fileName The name and directory of the file to be analysed
+	 * @throws IOException
+	 * @throws StockException 
+	 * @author Jonathon Meyer
+	 */
 	public static void CreateCSVManifest(String fileName) throws IOException, StockException {
 		FileWriter writer = new FileWriter("manifest.csv");
 		
