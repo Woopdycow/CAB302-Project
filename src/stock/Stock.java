@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Stock {
-	public Map<Item, Integer> contents;
+	private Map<Item, Integer> contents;
 
 	/**
 	 * Constructor Method Stock object.

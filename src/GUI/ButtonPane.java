@@ -20,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.EventListenerList;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 import CSV.ItemReader;
 import CSV.ManifestReader;
@@ -32,14 +34,17 @@ import stock.Item;
 import stock.StockException;
 import stock.Store;
 
-public class ButtonPane extends JPanel {
+public class ButtonPane extends JPanel implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	InfoPane infoPane = new InfoPane();
 
 	public ButtonPane() {
+		
+		EventListenerList listenerList = new EventListenerList();
 		
 		Store myStore = Store.getInstance();
 		JFileChooser chooser = new JFileChooser();
@@ -84,16 +89,38 @@ public class ButtonPane extends JPanel {
 						
 						for (Item item : ItemList) {
 					    	   myStore.getInstance().addItem(item, 0);
-					    	   System.out.println(myStore.getInstance().getItemByName("rice").getCost());
+					    	   //System.out.println(myStore.getInstance().getItemByName("rice").getCost());
 								System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
 							}
 					} catch (CSVFormatException e1) {
 						handleException("CSV Format is not correct");
 						e1.printStackTrace();
 					}
+					
+					for (Item i : myStore.getStock().getItemSet()) {
+						String name = i.getName();
+						int quantity = (myStore.getStock().getQuantity(i));
+						double manuCost = i.getCost();
+						double sellPrice = i.getPrice();
+						int reorderPoint = i.getReorderPoint();
+						int reorderAmount = i.getReorderAmount();
+						double temp = i.getTemp();
+						
+						
+						if (temp == 11.00) {
+							String noTemp = "N/A";
+							
+							Object[] itemInfo = {name, quantity, manuCost, sellPrice, reorderPoint, reorderAmount, noTemp};
+							fireButtonEvent(new ButtonEvent(this, itemInfo));
+						} else {
+							Object[] itemInfo = {name, quantity, manuCost, sellPrice, reorderPoint, reorderAmount, temp};
+							fireButtonEvent(new ButtonEvent(this, itemInfo));
+							
+						}
+					
+			    }
 			    }
 			}
-			
 		});
 		
 		button2.addActionListener(new ActionListener() {
@@ -147,7 +174,7 @@ public class ButtonPane extends JPanel {
 		gbc.insets = new Insets(0,740,100,0);
 		gbc.fill = GridBagConstraints.NONE;
 		
-		add(button1, gbc);
+		//add(button1, gbc);
 		
 		
 		gbc.gridx = 0;
@@ -155,7 +182,7 @@ public class ButtonPane extends JPanel {
 		gbc.insets = new Insets(0,400,100,0);
 		gbc.fill = GridBagConstraints.NONE;
 		
-		add(button2, gbc);
+		//add(button2, gbc);
 		
 		
 		
@@ -164,7 +191,7 @@ public class ButtonPane extends JPanel {
 		gbc.insets = new Insets(0,60,100,0);
 		gbc.fill = GridBagConstraints.NONE;
 		
-		add(button3, gbc);
+		//add(button3, gbc);
 		
 		
 		
@@ -173,7 +200,7 @@ public class ButtonPane extends JPanel {
 		gbc.insets = new Insets(0,0,100,280);
 		gbc.fill = GridBagConstraints.NONE;
 		
-		add(button4, gbc);
+		//add(button4, gbc);
 		
 		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.insets = new Insets(200,960,100,0);
@@ -191,5 +218,27 @@ public class ButtonPane extends JPanel {
 	public static void handleException(String errorDescription) {
 		JOptionPane.showMessageDialog(null, errorDescription);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void fireButtonEvent(ButtonEvent event) {
+		Object[] listeners = listenerList.getListenerList();
+		
+		for (int i = 0; i < listeners.length; i += 2) {
+			if (listeners[i] == ButtonListener.class) {
+				((ButtonListener)listeners[i+1]).buttonEventHappened(event);
+			}
+		}
+	}
+	
+	public void addButtonListener(ButtonListener listener) {
+		listenerList.add(ButtonListener.class, listener);
+	}
+
+	
 
 }

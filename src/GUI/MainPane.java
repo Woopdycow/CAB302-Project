@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,13 +26,11 @@ public class MainPane extends JFrame {
 		
 		titlePane = new TitlePane();
 		infoPane = new InfoPane();
-		buttonPane = new ButtonPane();
 		
 		Container window = getContentPane();
 		
 		window.add(titlePane, BorderLayout.NORTH);
 		window.add(infoPane, BorderLayout.CENTER);
-		window.add(buttonPane, BorderLayout.SOUTH);
 		
 	}
 

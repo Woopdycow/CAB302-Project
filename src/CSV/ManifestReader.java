@@ -44,7 +44,7 @@ public class ManifestReader {
 		
 		Manifest delivery = new Manifest();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			//Print each line to an array
 			List<String> lines = new ArrayList<>();
 			for (int i = 0; (line = br.readLine()) != null; i++) {
@@ -76,7 +76,7 @@ public class ManifestReader {
 						String[] itemInfo = lines.get(j).split(csvSplitBy);
 						int quantity = new Integer(itemInfo[1]);
 						item = myStore.getItemByName(itemInfo[0]);
-						System.out.println(myStore.getInstance().getItemByName("rice").getCost());
+						//System.out.println(myStore.getInstance().getItemByName("rice").getCost());
 						//System.out.println(item.getPrice());
 						cargo.addItem(item, quantity);
 						System.out.println(itemInfo[0]);
