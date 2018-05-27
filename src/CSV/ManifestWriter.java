@@ -15,8 +15,7 @@ public class ManifestWriter {
 	}
 	
 	
-	public static void CreateCSVManifest(String fileName) throws TruckOverloadException, IOException {
-		
+	public static void CreateCSVManifest(String fileName) throws IOException, StockException {
 		FileWriter writer = new FileWriter("manifest.csv");
 		
 		Manifest manifest = Store.getInstance().getManifest();

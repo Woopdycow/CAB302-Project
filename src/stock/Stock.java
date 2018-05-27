@@ -33,12 +33,15 @@ public class Stock {
 	 * @author Bryan Kassulke
 	 * @param item Item to be removed.
 	 * @param amount Amount of the added to removed.
+	 * @throws StockException 
 	 */
-	public void removeItem(Item item, int amount) {
+	public void removeItem(Item item, int amount) throws StockException {
 		if (contents.get(item) > amount) {
 			contents.put(item, contents.get(item) - amount);
-		} else {
+		} else if (contents.get(item) == amount) {
 			contents.remove(item);
+		} else {
+			throw new StockException("Attempted to remove more items than were available.");
 		}
 	}
 

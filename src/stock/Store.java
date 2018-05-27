@@ -9,6 +9,7 @@ public class Store {
 	private static final double STARTINGCAPITAL = 100000.00;
 	private static String name;
 	private static double capital;
+	private static List<Item> itemIdentities;
 	private static Stock inventory;
 	
 
@@ -46,6 +47,7 @@ public class Store {
 	 */
 	public void addItem(Item imported, int amount) {
 		inventory.addItem(imported, amount);
+		itemIdentities.add(imported);
 	}
 	
 	/**
@@ -55,7 +57,11 @@ public class Store {
 	 * @param amount Quantity of the item to be removed.
 	 */
 	public void removeItem(Item removed, int amount) {
-		inventory.removeItem(removed, amount);
+		try {
+			inventory.removeItem(removed, amount);
+		} catch(Exception e) {
+			//e.getMessage()
+		}
 	}
 	
 	/**
@@ -72,17 +78,24 @@ public class Store {
 	 * Loads new items from external list into the store's inventory. Overrides existing item with shared name but preserves quantity.
 	 * @author Bryan Kassulke
 	 * @param newItems List of new items to be added.
+	 * @throws StockException 
 	 */
-	public void loadItemProperties(List<Item> newItems) {
-		int temp = 0;
-		for (Item k : newItems) {
-			for (Item j : inventory.getItemSet()) {
-				if (k.getName() == j.getName()) {
-					temp = inventory.getQuantity(j);
-					inventory.removeItem(j, inventory.getQuantity(j));
+	public void loadItemProperties(List<Item> newItems) throws StockException {
+		try {
+			int temp = 0;
+			for (Item k : newItems) {
+				for (Item j : inventory.getItemSet()) {
+					if (k.getName() == j.getName()) {
+						temp = inventory.getQuantity(j);
+						inventory.removeItem(j, inventory.getQuantity(j));
+						inventory.addItem(k, temp);
+						itemIdentities.remove(j);
+						itemIdentities.add(k);
+					}
 				}
 			}
-			inventory.addItem(k, temp);
+		} catch (Exception e) {
+			//e.getMessage();
 		}
 	}
 	
@@ -90,8 +103,9 @@ public class Store {
 	 * Loads weekly sales log to the store. Adjusts stock levels and capital accordingly.
 	 * @author Bryan Kassulke
 	 * @param sales List of values to be loaded as item names and quantities.
+	 * @throws StockException 
 	 */
-	public void loadSalesLog(List<Object[]> sales) {
+	public void loadSalesLog(List<Object[]> sales) throws StockException {
 		int grossProfit = 0;
 		Item soldItem = new Item(" ", 0.0, 0.0, 0, 0);
 		for (Object[] k : sales) {
@@ -129,15 +143,15 @@ public class Store {
 					// Unload and unpack into store
 					inventory.merge(i.getCargo());
 				} else {
-					// Truck has no cargo!
-					throw new DeliveryException();
+					// Manifest contains no trucks!
+					throw new DeliveryException("Loaded manifest's trucks are missing cargo.");
 				}
 				// Add the truck expense
 				grossCost += (Math.round(i.getCost() * 100.0) / 100.0);
 			}
 		} else {
 			// Manifest contains no trucks!
-			throw new DeliveryException();
+			throw new DeliveryException("Loaded manifest contains no trucks.");
 		}
 		capital -= grossCost;
 	}
@@ -146,9 +160,10 @@ public class Store {
 	 * Generates a manifest to be delivered to the store based on the levels of inventory.
 	 * @author Bryan Kassulke
 	 * @return Returns a manifest for stock reusable.
+	 * @throws StockException 
 	 * @throws TruckOverloadException Trucks have been loaded with more stock than they can fit.
 	 */
-	public Manifest getManifest() throws TruckOverloadException {
+	public Manifest getManifest() throws StockException {
 		Manifest resupply = new Manifest();
 		Stock reorder = getReorder();
 		List<Item> dryGoods = new ArrayList<Item>();
