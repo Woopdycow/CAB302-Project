@@ -30,7 +30,7 @@ public class ManifestTests {
 	}
 	
 	@Test
-	public void testAdd() throws TruckOverloadException {
+	public void testAdd() {
 		myManifest = new Manifest();
 		Item item1 = new Item("Vegemite", 2.60, 3.50, 30, 70);
 		Item item2 = new Item("Ice Cream", 4.26, 8.30, 100, 200, -18.00);
@@ -56,7 +56,7 @@ public class ManifestTests {
 	}
 	
 	@Test
-	public void testGetTruck() throws TruckOverloadException {
+	public void testGetTrucks() {
 		myManifest = new Manifest();
 		Item item1 = new Item("Vegemite", 2.60, 3.50, 30, 70);
 		Item item2 = new Item("Ice Cream", 4.26, 8.30, 100, 200, -18.00);
@@ -72,13 +72,11 @@ public class ManifestTests {
 		myManifest.addTruck(truck2);
 		myManifest.addTruck(truck3);
 		
-		String tester = "[delivery.OrdinaryTruck@255316f2, delivery.RefrigeratedTruck@41906a77, delivery.OrdinaryTruck@4b9af9a9]";
-		
-		assertEquals(tester, myManifest.getTrucks().toString());
+		assertEquals(myManifest.getTrucks().contains(truck2), true);
 	}
 	
 	@Test
-	public void testRemove() throws TruckOverloadException {
+	public void testRemove() {
 		myManifest = new Manifest();
 		Item item1 = new Item("Vegemite", 2.60, 3.50, 30, 70);
 		Item item2 = new Item("Ice Cream", 4.26, 8.30, 100, 200, -18.00);
