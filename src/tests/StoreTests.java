@@ -23,7 +23,7 @@ public class StoreTests {
 	Stock stock4;
 	
 	@Test
-	public void testAddItem() throws TruckOverloadException, DeliveryException {
+	public void testAddItem() throws DeliveryException {
 		Item item1 = new Item("Toilet Paper", 106.22, 121.61, 320, 600);
 		myStore.addItem(item1, 30);
 		int amount = myStore.getItemQuantity(item1);
@@ -31,14 +31,14 @@ public class StoreTests {
 	}
 	
 	@Test
-	public void testGetReorder() throws TruckOverloadException, DeliveryException {
+	public void testGetReorder() throws DeliveryException {
 		Item item1 = new Item("Toilet Paper", 106.22, 121.61, 320, 600);
 		myStore.addItem(item1, 30);
 		assertEquals(600, myStore.getReorder().getQuantity(item1), 0.0);
 	}
 	
 	@Test
-	public void testLoadManifest() throws TruckOverloadException, DeliveryException {		
+	public void testLoadManifest() throws DeliveryException {		
 		
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
@@ -64,7 +64,7 @@ public class StoreTests {
 	}
 	
 	@Test
-	public void testCapitalDecrease() throws TruckOverloadException, DeliveryException {
+	public void testCapitalDecrease() throws DeliveryException {
 			
 	}
 	@Test
@@ -74,7 +74,7 @@ public class StoreTests {
 	}
 	
 	@Test
-	public void testGetManifest() throws TruckOverloadException {
+	public void testGetManifest() throws StockException {
 		
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();

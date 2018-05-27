@@ -168,4 +168,17 @@ public class ItemTests {
 		myItem = new Item("Milk", 32.26, 13.82, 680, 1282, temp);
 		assertEquals(temp, myItem.getTemp(), 0.0);
 	}
+	
+	@Test
+	public void testIsDryGoods1() {
+		myItem = new Item("Bread", 32.26, 13.82, 680, 1282);
+		assertEquals(true, myItem.isDryGoods());
+	}
+	
+	@Test
+	public void testIsDryGoods2() {
+		double temp = randTemp();
+		myItem = new Item("Milk", 32.26, 13.82, 680, 1282, temp);
+		assertEquals(false, myItem.isDryGoods());
+	}
 }

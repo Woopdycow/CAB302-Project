@@ -4,8 +4,10 @@ import org.junit.*;
 
 import stock.Item;
 import stock.Stock;
+import stock.StockException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class StockTests {
 
@@ -121,5 +123,55 @@ public class StockTests {
 	stock1.merge(stock2);
 	
 	assertEquals(70, stock1.getQuantity(myItem3), 0.0);
+	}
+	
+	@Test
+	public void testRemoveItem1() throws StockException {
+		Stock stock1 = new Stock();
+		Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+		stock1.addItem(myItem1, 10);
+		stock1.removeItem(myItem1, 5);
+		assertEquals(5, stock1.getQuantity(myItem1));
+	}
+	
+	@Test
+	public void testRemoveItem2() throws StockException {
+		Stock stock1 = new Stock();
+		Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+		stock1.addItem(myItem1, 10);
+		stock1.removeItem(myItem1, 10);
+		assertEquals(false, stock1.itemExists(myItem));
+	}
+	
+	@Test
+	public void testRemoveItem3() throws StockException {
+		try {
+			Stock stock1 = new Stock();
+			Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+			stock1.addItem(myItem1, 10);
+			stock1.removeItem(myItem1, 15);
+			fail("Expected StockException to be thrown.");
+		} catch (StockException e) {
+			assertEquals(e.getMessage(), "Attempted to remove more items than were available.");
+		}
+	}
+	
+	@Test
+	public void testGetQuantityNull() {
+		Stock stock1 = new Stock();
+		Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+
+		assertEquals(0, stock1.getQuantity(myItem1), 0.0);
+	}
+	
+	@Test
+	public void testGetTotal() {
+		Stock stock1 = new Stock();
+		Item myItem1 = new Item("Beans", 3.50, 6.00, 15, 60);
+		stock1.addItem(myItem1, 64);
+		stock1.addItem(myItem1, 32);
+		stock1.addItem(myItem1, 16);
+
+		assertEquals(112, stock1.getTotal(), 0.0);
 	}
 }
