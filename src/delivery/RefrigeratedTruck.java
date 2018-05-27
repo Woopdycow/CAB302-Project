@@ -33,17 +33,14 @@ public class RefrigeratedTruck extends Truck {
 	 */
 	public double getTemp() {
 		if (cargo != null) {
+			temp = 10.0;
 			for (Item key : cargo.getItemSet()){
-				System.out.println(key.getTemp());
 				if (key.getTemp() < temp) {
 					temp = key.getTemp();
 				}
 			}
-			return temp;
-		} else {
-			return 10.0;
 		}
-		
+		return temp;
 	}
 	
 	/**
@@ -52,7 +49,7 @@ public class RefrigeratedTruck extends Truck {
 	 * @return Returns the calculated cost of the truck.
 	 */
 	public double getCost() {
-		this.cost = 900 + (200 * Math.pow(0.7, (temp / 5)));
+		this.cost = 900 + (200 * Math.pow(0.7, (temp / 5.0)));
 		return cost;
 	}
 	

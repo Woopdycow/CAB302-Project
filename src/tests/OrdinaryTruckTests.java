@@ -10,7 +10,6 @@ import stock.*;
 import org.junit.Test;
 
 import delivery.OrdinaryTruck;
-import delivery.TruckOverloadException;
 import stock.Item;
 import stock.Stock;
 
@@ -33,7 +32,7 @@ public class OrdinaryTruckTests {
 	}
 	
 	@Test
-	public void testCargo() throws TruckOverloadException {
+	public void testCargo() {
 		String outputTest = "";
 		myTruck = new OrdinaryTruck();
 		Stock stock1 = new Stock();
@@ -52,7 +51,7 @@ public class OrdinaryTruckTests {
 	}
 	
 	@Test
-	public void testGetCost() throws TruckOverloadException {
+	public void testGetCost() {
 		myTruck = new OrdinaryTruck();
 		Stock stock1 = new Stock();
 		Item item1 = new Item("Vegemite", 10.0, 15.0, 320, 600);
@@ -71,13 +70,9 @@ public class OrdinaryTruckTests {
 		assertEquals(1000, myTruck.getCapacity(), 0.0);
 	}
 	
-	@Test(expected = TruckOverloadException.class)
-	public void testOverload() throws TruckOverloadException {
+	@Test
+	public void testGetType() {
 		myTruck = new OrdinaryTruck();
-		Stock stock1 = new Stock();
-		Item item1 = new Item("Vegemite", 10.0, 15.0, 320, 600);
-		stock1.addItem(item1, 1001);
-		myTruck.setCargo(stock1);
+		assertEquals("Ordinary", myTruck.getType());
 	}
-
 }

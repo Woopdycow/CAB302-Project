@@ -89,9 +89,6 @@ public class StoreTests {
 		assertEquals(ourItem.getName(), myStore.getItemByName(ourItem.getName()).getName());
 	}
 	
-	@Test
-	public void testLoadItemProperties() {
-	}
 	
 	@Test
 	public void testGetManifest() throws StockException {
