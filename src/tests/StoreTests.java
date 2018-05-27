@@ -74,16 +74,35 @@ public class StoreTests {
 	}
 	
 	@Test
+	public void testGetStock() {
+		myStore = Store.getInstance();
+		int numberOfItems = 345;
+		myStore.addItem(item4, numberOfItems);
+		assertEquals(numberOfItems, myStore.getStock().getQuantity(item4));
+	}
+	
+	@Test
+	public void testGetItemByName() {
+		myStore = Store.getInstance();
+		Item ourItem = item3;
+		myStore.addItem(item3, 2);
+		assertEquals(ourItem.getName(), myStore.getItemByName(ourItem.getName()).getName());
+	}
+	
+	@Test
+	public void testLoadItemProperties() {
+	}
+	
+	@Test
 	public void testGetManifest() throws StockException {
 		
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		
-		stock1.addItem(item1, 30);
-		stock1.addItem(item2, 40);
-		stock2.addItem(item2, 30);
-		stock2.addItem(item3, 11);
-		stock2.addItem(item4, 69);
+		stock1.addItem(item1, item1.getReorderAmount());
+		stock1.addItem(item2, item2.getReorderAmount());
+		stock2.addItem(item3, item3.getReorderAmount());
+		stock2.addItem(item4, item4.getReorderAmount());
 		truck1 = new OrdinaryTruck();
 		truck2 = new RefrigeratedTruck();
 		truck1.setCargo(stock1);
@@ -93,8 +112,8 @@ public class StoreTests {
 		myManifest.addTruck(truck1);
 		myManifest.addTruck(truck2);
 		
-		myStore.getManifest();
+		//3320
 		
-		assertEquals(myManifest, myStore.getManifest());
+		assertEquals();
 	}
 }

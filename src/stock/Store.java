@@ -40,6 +40,13 @@ public class Store {
 		return StoreHolder.INSTANCE;
 	}
 	
+	public void reset() {
+		name = "SUPERMART";
+		capital = STARTINGCAPITAL;
+		inventory = new Stock();
+		itemIdentities = new ArrayList<Item>();
+	}
+	
 	/**
 	 * Adds an item to the store's inventory of a given quantity.
 	 * @author Bryan Kassulke
@@ -320,7 +327,7 @@ public class Store {
 	 * @return The item of which the name belongs to.
 	 */
 	public Item getItemByName(String name) {
-		for (Item k : inventory.getItemSet()) {
+		for (Item k : itemIdentities) {
 			if (k.getName() == name) {
 				return k;
 			}
@@ -353,5 +360,6 @@ public class Store {
 	 */
 	public Stock getStock() {
 		return inventory;
-	}	
+	}
+	
 }
