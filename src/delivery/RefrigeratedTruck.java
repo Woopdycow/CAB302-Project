@@ -34,6 +34,7 @@ public class RefrigeratedTruck extends Truck {
 	public double getTemp() {
 		if (cargo != null) {
 			for (Item key : cargo.getItemSet()){
+				System.out.println(key.getTemp());
 				if (key.getTemp() < temp) {
 					temp = key.getTemp();
 				}

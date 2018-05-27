@@ -34,6 +34,11 @@ import stock.Store;
 
 public class ButtonPane extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ButtonPane() {
 		
 		Store myStore = Store.getInstance();
@@ -78,7 +83,8 @@ public class ButtonPane extends JPanel {
 						ItemList = reader.ReadItemCSV(chooser.getSelectedFile().getAbsolutePath());
 						
 						for (Item item : ItemList) {
-					    	   myStore.addItem(item, 0);
+					    	   myStore.getInstance().addItem(item, 0);
+					    	   System.out.println(myStore.getInstance().getItemByName("rice").getCost());
 								System.out.println(item.getName() + "," + item.getCost() + "," + item.getPrice() + "," + item.getReorderPoint() + "," + item.getReorderAmount() + "," + item.getTemp() + "\n");
 							}
 					} catch (CSVFormatException e1) {
@@ -116,18 +122,23 @@ public class ButtonPane extends JPanel {
 				chooser.setCurrentDirectory(new java.io.File("."));
 				chooser.setDialogTitle("Select Manifest...");
 				if (chooser.showOpenDialog(button3) == JFileChooser.APPROVE_OPTION) {
-					try {
+					
 						Manifest importManifest = new Manifest();
-						importManifest = ManifestReader.ReadManifestCSV(chooser.getSelectedFile().getAbsolutePath());
-						myStore.loadManifest(importManifest);
+						try {
+							importManifest = ManifestReader.ReadManifestCSV(chooser.getSelectedFile().getAbsolutePath());
+						} catch (CSVFormatException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						try {
+							myStore.loadManifest(importManifest);
+						} catch (DeliveryException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						System.out.println("Imported.");
-					} catch (stock.DeliveryException e1) {
-						handleException("Delivery Exception");
-					} catch (CSVFormatException e1) {
-						handleException("CSV Format is not correct.");
 					}
 				}
-			}
 		});
 		
 		//gbc.weightx = 0.5;
@@ -177,7 +188,7 @@ public class ButtonPane extends JPanel {
 		
 	}
 	
-	public void handleException(String errorDescription) {
+	public static void handleException(String errorDescription) {
 		JOptionPane.showMessageDialog(null, errorDescription);
 	}
 

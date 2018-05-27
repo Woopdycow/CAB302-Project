@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import GUI.ButtonPane;
 import delivery.CSVFormatException;
 import delivery.Manifest;
 import delivery.OrdinaryTruck;
 import delivery.RefrigeratedTruck;
 import delivery.Truck;
+import stock.Item;
 import stock.Stock;
 import stock.Store;
 
@@ -21,7 +23,7 @@ public class ManifestReader {
 		try {
 			Manifest manifest = ReadManifestCSV(fileName);
 		} catch(CSVFormatException e) {
-			e.getMessage();
+			ButtonPane.handleException(e.getMessage());
 		}
 		
 		
@@ -38,6 +40,7 @@ public class ManifestReader {
 		String csvSplitBy = ",";
 		Store myStore = Store.getInstance();
 		
+		Item item;
 		
 		Manifest delivery = new Manifest();
 		
@@ -63,20 +66,19 @@ public class ManifestReader {
 					//Create truck
 					if (lines.get(i).startsWith(">Re")) {
 						newTruck = new RefrigeratedTruck();
-					} else if (lines.get(i) == ">Ordinary") {
+					} else if (lines.get(i).startsWith(">Or")) {
 						newTruck = new OrdinaryTruck();
 					} else {
-
-						System.out.println(lines.get(i));
-						System.out.println(i);
-						
 						throw new CSVFormatException("Invalid truck type.");
 					}
 					Stock cargo = new Stock();
 					for (int j = i + 1; j < items + i + 1; j++) {
 						String[] itemInfo = lines.get(j).split(csvSplitBy);
 						int quantity = new Integer(itemInfo[1]);
-						cargo.addItem(myStore.getItemByName(itemInfo[0]), quantity);
+						item = myStore.getItemByName(itemInfo[0]);
+						System.out.println(myStore.getInstance().getItemByName("rice").getCost());
+						//System.out.println(item.getPrice());
+						cargo.addItem(item, quantity);
 						System.out.println(itemInfo[0]);
 					}
 					if (cargo.getTotal() == 0) {
