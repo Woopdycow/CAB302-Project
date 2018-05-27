@@ -23,7 +23,10 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import CSV.ItemReader;
+import CSV.ManifestReader;
 import CSV.ManifestWriter;
+import delivery.DeliveryException;
+import delivery.Manifest;
 import delivery.TruckOverloadException;
 import stock.Item;
 import stock.Store;
@@ -94,6 +97,26 @@ public class ButtonPane extends JPanel {
 					} catch (TruckOverloadException | IOException e1) {
 						JOptionPane.showMessageDialog(null, "Error");
 						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		button3.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				chooser.setCurrentDirectory(new java.io.File("."));
+				chooser.setDialogTitle("Select Manifest...");
+				if (chooser.showSaveDialog(button3) == JFileChooser.APPROVE_OPTION) {
+					try {
+						Manifest importManifest = new Manifest();
+						importManifest = ManifestReader.ReadManifestCSV(chooser.getSelectedFile().getAbsolutePath());
+						myStore.loadManifest(importManifest);
+						System.out.println("Imported.");
+					} catch (TruckOverloadException e2) {
+						handleException("Truck Overload Exception");
+					} catch (DeliveryException e1) {
+						handleException("Delivery Exception");
 					}
 				}
 			}
